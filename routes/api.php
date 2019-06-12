@@ -24,9 +24,11 @@ Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
-//Route::get('/utilisateurs','UtilisateurController@index');
+Route::get('/utilisateurs','UtilisateurController@index');
+Route::resource('/Classe', 'ClasseController');
+Route::get('/Classe/getNiveaux','NiveauController@getNiveaux');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');
 Route::patch('/roles/{id}RoleController@update');
-Route::delete('/roles/{id}','RoleController@destroy'); *
+Route::delete('/roles/{id}','RoleController@destroy'); */

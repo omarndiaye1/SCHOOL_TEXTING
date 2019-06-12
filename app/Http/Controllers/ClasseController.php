@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classe;
+use App\Models\Departement;
+use App\Models\Niveau;
 use App\Service\ClasseService;
 
 class ClasseController  extends BaseControllers
@@ -43,10 +45,12 @@ class ClasseController  extends BaseControllers
         $niv=new Niveau();
         $departements= $dep->all(); 
         $niveaux= $niv->all(); 
-         return response()->json($departements,$niveaux);
+        $data['niveaux']=$niveaux;
+        $data['departements']=$departements;
+         return response()->json($data);
           
     }
-
+   
 
     /**
      * Store a newly created resource in storage.

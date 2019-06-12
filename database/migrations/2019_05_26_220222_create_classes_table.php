@@ -17,6 +17,10 @@ class CreateClassesTable extends Migration
             $table->bigIncrements('id');
             $table->string('libelleClasse');
             $table->integer('effectif');
+            $table->unsignedBigInteger('departement_id');
+            $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->unsignedBigInteger('niveau_id');
+            $table->foreign('niveau_id')->references('id')->on('niveaux')->onDelete('cascade');
             $table->timestamps();
         });
     }
