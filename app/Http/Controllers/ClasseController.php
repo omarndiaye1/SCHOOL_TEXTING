@@ -30,7 +30,8 @@ class ClasseController  extends BaseControllers
     {
         //
       
-        $data = $this->service->all();     
+        $tab = $this->service->all();   
+        $role=Role::whereLibelle($request->post("libelle"))->firstOrFail();  
         return $data;
     }
 

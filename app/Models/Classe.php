@@ -12,6 +12,7 @@ class Classe extends Model
     {
         return $this->belongsTo('App\Models\Niveau');
     }
+    
     public function departement()
     {
         return $this->belongsTo('App\Models\Departement');
