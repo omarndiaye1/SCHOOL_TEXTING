@@ -11,7 +11,7 @@ class MatiereController  extends BaseControllers
    /**
      * Create a new controller instance.
      *
-     * @param  MatiereRepository  
+     * @param  MatiereRepository
      * @return void
      */
     public function __construct(MatiereService $service)
@@ -27,8 +27,8 @@ class MatiereController  extends BaseControllers
     public function index()
     {
         //
-      
-        $data = $this->service->all();     
+
+        $data = $this->service->all();
         return $data;
     }
 
@@ -39,7 +39,7 @@ class MatiereController  extends BaseControllers
      */
     function create ()
     {
-          
+
     }
 
 
@@ -104,7 +104,7 @@ class MatiereController  extends BaseControllers
 
     function update (Request $request,$id)
     {
-    
+
         try
             {
                // $user= request()->user();
