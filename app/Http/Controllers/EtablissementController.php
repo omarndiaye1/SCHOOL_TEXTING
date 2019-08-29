@@ -50,8 +50,9 @@ class EtablissementController extends Controller
      */
     public function store(Request $request)
     {
-        header("Access-Control-Allow-Origin: *");
+
       $data = $request->all();
+
       $this->service->create($data);
       return response()->json($data, '201');
     }
