@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
-use App\Models\Matiere;
-use App\Service\MatiereService;
-
-class MatiereController  extends BaseControllers
+use App\Models\Etablissement;
+use App\Service\EtablissementService;
+class EtablissementController extends Controller
 {
-   /**
+     /**
      * Create a new controller instance.
      *
-     * @param  MatiereRepository
+     * @param  EtablissementRepository
      * @return void
      */
-    public function __construct(MatiereService $service)
+    public function __construct(EtablissementService $service)
     {
         $this->service = $service;
     }
@@ -26,7 +25,6 @@ class MatiereController  extends BaseControllers
 
     public function index()
     {
-
         //
 
         $data = $this->service->all();
@@ -52,6 +50,7 @@ class MatiereController  extends BaseControllers
      */
     public function store(Request $request)
     {
+        header("Access-Control-Allow-Origin: *");
       $data = $request->all();
       $this->service->create($data);
       return response()->json($data, '201');
@@ -90,7 +89,7 @@ class MatiereController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
+        Etablissement::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();

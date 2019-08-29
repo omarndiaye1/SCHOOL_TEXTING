@@ -8,11 +8,6 @@
 
     </head>
     <body>
-        <h1>home page</h1>
-
-        <ul>
-           <li> <a href="/contact"> contact </a> </li>
-           <li> <a href="/about"> about </a>  </li>
-        </ul>
+        <h1>contact form </h1>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
 
 /*
@@ -27,6 +27,8 @@ Route::resource('/Niveau', 'NiveauController');
 Route::get('/utilisateurs','UtilisateurController@index');
 Route::resource('/Classe', 'ClasseController');
 Route::get('/Classe/getNiveaux','NiveauController@getNiveaux');
+Route::post('/etablissement/store', 'EtablissementController@store');
+Route::resource('/etablissement', 'EtablissementController');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');
