@@ -15,12 +15,12 @@ use App\Service\UtilisateurService;
 
 class UtilisateurController  extends BaseControllers
 {
-    
+
 
     /**
      * Create a new controller instance.
      *
-     * @param  UtilisateurRepository  
+     * @param  UtilisateurRepository
      * @return void
      */
     public function __construct(UtilisateurService $service)
@@ -35,7 +35,7 @@ class UtilisateurController  extends BaseControllers
 
     public function index()
     {
-        $data = $this->service->all();        
+        $data = $this->service->all();
         return $data;
     }
 
@@ -45,9 +45,9 @@ class UtilisateurController  extends BaseControllers
      * @return \Illuminate\Http\Response
      */
     function create ()
-    { 
+    {
         $role=new Role();
-        $data = $role->all(); 
+        $data = $role->all();
          return response()->json($data);
     }
 
@@ -72,21 +72,26 @@ class UtilisateurController  extends BaseControllers
       $data['civilite']=$request->post("civilite");
       $result=$this->service->create($data);
         //ajout adresse
-      $adresse=new Adresse();
+      /*$adresse=new Adresse();
       $adresse->Alibelle=$request->post("Alibelle");
       $adresse->ville=$request->post("ville");
       $adresse->pays=$request->post("pays");
       $adresse->user_id= $result->id;
-      $adresse->save();
+      $adresse->save();*/
       //ajout dans la table d'association
       $role_user=new Role_User();
       $role=new Role();
-      $role=Role::whereLibelle($request->post("libelle"))->firstOrFail();
+      $role=Role::whereLibelle($request->post("role"))->firstOrFail();
       $role_user->role_id=$role->id;
       $role_user->user_id= $result->id;
       $role_user->save();
-   
-      return response()->json('add success');
+
+      return response()->json('Added succesfully');
+
+      /*$data = $request->all();
+
+      $this->service->create($data);
+      return response()->json($data, '201');*/
     }
 
     /**
@@ -101,7 +106,7 @@ class UtilisateurController  extends BaseControllers
      $data= $this->service->find($id);
         return response()->json($data, '200');
     }
-             
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -137,7 +142,7 @@ class UtilisateurController  extends BaseControllers
 
     function update (Request $request,$id)
     {
-    
+
         try
             {
                // $user= request()->user();

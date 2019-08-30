@@ -25,7 +25,7 @@ class CreateUtilisateursTable extends Migration
             $table->string('fixe')->nullable();
             $table->string('email')->unique();
             $table->string('civilite');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
