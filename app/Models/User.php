@@ -19,6 +19,9 @@ class User extends Model
         return $this->belongsToMany(Role::class, 'role__users');
     }
 
+    public function adresses(){
+        return $this->hasMany(Adresse::class);
+    }
     /*public function usertable(){
         return $this->morphTo();
     }*/

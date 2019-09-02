@@ -38,6 +38,7 @@ class UserController  extends BaseControllers
         $data = $this->service->all();
         foreach($data as &$value){
             $value->roles;
+            $value->adresses;
         }
         return $data;
     }
@@ -76,12 +77,12 @@ class UserController  extends BaseControllers
       $data['remember_token'] = Str::random(10);
       $result=$this->service->create($data);
         //ajout adresse
-      /*$adresse=new Adresse();
-      $adresse->Alibelle=$request->post("Alibelle");
+      $adresse=new Adresse();
+      $adresse->libelle=$request->post("libelle");
       $adresse->ville=$request->post("ville");
       $adresse->pays=$request->post("pays");
       $adresse->user_id= $result->id;
-      $adresse->save();*/
+      $adresse->save();
       //ajout dans la table d'association
       $role_user=new Role_User();
       $role=new Role();
