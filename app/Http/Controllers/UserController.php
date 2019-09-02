@@ -5,25 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
-use App\Models\Utilisateur;
+use App\Models\User;
 use App\Models\Adresse;
 use App\Models\Role;
 use App\Models\Role_User;
-use App\Service\UtilisateurService;
+use App\Service\UserService;
+use Illuminate\Support\Str;
 
 
-
-class UtilisateurController  extends BaseControllers
+class UserController  extends BaseControllers
 {
 
 
     /**
      * Create a new controller instance.
      *
-     * @param  UtilisateurRepository
+     * @param  UserRepository
      * @return void
      */
-    public function __construct(UtilisateurService $service)
+    public function __construct(UserService $service)
     {
         $this->service = $service;
     }
@@ -36,6 +36,9 @@ class UtilisateurController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
+        foreach($data as &$value){
+            $value->roles;
+        }
         return $data;
     }
 
@@ -67,9 +70,10 @@ class UtilisateurController  extends BaseControllers
       $data['sexe']=$request->post("sexe");
       $data['datenaissance']=$request->post("datenaissance");
       $data['tel']=$request->post("tel");
-      $data['fixe']=$request->post("fix");
       $data['email']=$request->post("email");
       $data['civilite']=$request->post("civilite");
+      $data['email_verified_at'] = now();
+      $data['remember_token'] = Str::random(10);
       $result=$this->service->create($data);
         //ajout adresse
       /*$adresse=new Adresse();
@@ -127,7 +131,7 @@ class UtilisateurController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Utilisateur::destroy($id);
+        User::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();

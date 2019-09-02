@@ -18,13 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/role', 'RoleController');
-Route::resource('/utilisateur', 'UtilisateurController');
 Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
-Route::resource('/utilisateurs','UtilisateurController');
+Route::resource('/utilisateurs','UserController');
 Route::resource('/Classe', 'ClasseController');
 Route::get('/Classe/getNiveaux','NiveauController@getNiveaux');
 Route::resource('/etablissement', 'EtablissementController');

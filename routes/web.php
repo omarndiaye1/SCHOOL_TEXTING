@@ -21,4 +21,4 @@ Route::get('/contact', function () {
 Route::get('/about', function () {
     return view('about');
 });
-Route::resource('/utilisateurs','UtilisateurController');
+Route::resource('/utilisateurs','UserController');
