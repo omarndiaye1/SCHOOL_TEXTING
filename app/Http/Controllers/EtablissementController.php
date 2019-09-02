@@ -27,7 +27,10 @@ class EtablissementController extends Controller
     {
         //
 
-        $data = $this->service->all();
+         $data = $this->service->all();
+        foreach($data as $val){
+            $val->adresses;
+        }
         return $data;
     }
 
