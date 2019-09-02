@@ -1,29 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\BaseController;
-use App\Models\Utilisateur;
-use App\Models\Adresse;
-use App\Models\Role;
-use App\Models\Role_User;
-use App\Service\UtilisateurService;
-
-
-
-class UtilisateurController  extends BaseControllers
+use App\Models\Enseignant;
+use App\Service\EnseignantService;
+class EnseignantController extends Controller
 {
-
-
-    /**
+     /**
      * Create a new controller instance.
      *
-     * @param  UtilisateurRepository
+     * @param  EnseignantRepository
      * @return void
      */
-    public function __construct(UtilisateurService $service)
+    public function __construct(EnseignantService $service)
     {
         $this->service = $service;
     }
@@ -35,6 +25,8 @@ class UtilisateurController  extends BaseControllers
 
     public function index()
     {
+        //
+
         $data = $this->service->all();
         return $data;
     }
@@ -46,9 +38,7 @@ class UtilisateurController  extends BaseControllers
      */
     function create ()
     {
-        $role=new Role();
-        $data = $role->all();
-         return response()->json($data);
+
     }
 
 
@@ -60,38 +50,11 @@ class UtilisateurController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      $data['login']=$request->post("login");
-      $data['password']=$request->post("password");
-      $data['nom']=$request->post("nom");
-      $data['prenom']=$request->post("prenom");
-      $data['sexe']=$request->post("sexe");
-      $data['datenaissance']=$request->post("datenaissance");
-      $data['tel']=$request->post("tel");
-      $data['fixe']=$request->post("fix");
-      $data['email']=$request->post("email");
-      $data['civilite']=$request->post("civilite");
-      $result=$this->service->create($data);
-        //ajout adresse
-      /*$adresse=new Adresse();
-      $adresse->Alibelle=$request->post("Alibelle");
-      $adresse->ville=$request->post("ville");
-      $adresse->pays=$request->post("pays");
-      $adresse->user_id= $result->id;
-      $adresse->save();*/
-      //ajout dans la table d'association
-      $role_user=new Role_User();
-      $role=new Role();
-      $role=Role::whereLibelle($request->post("role"))->firstOrFail();
-      $role_user->role_id=$role->id;
-      $role_user->user_id= $result->id;
-      $role_user->save();
 
-      return response()->json('Added succesfully');
-
-      /*$data = $request->all();
+      $data = $request->all();
 
       $this->service->create($data);
-      return response()->json($data, '201');*/
+      return response()->json($data, '201');
     }
 
     /**
@@ -103,7 +66,7 @@ class UtilisateurController  extends BaseControllers
     public function show($id)
     {
         //
-     $data= $this->service->find($id);
+     $data=  $this->service->find($id);
         return response()->json($data, '200');
     }
 
@@ -127,7 +90,7 @@ class UtilisateurController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Utilisateur::destroy($id);
+        Enseignant::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();

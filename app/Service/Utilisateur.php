@@ -8,12 +8,18 @@ class Utilisateur extends Model
 {
     //
     protected $guarded=[];
-
+    
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role','role_user', 'user_id', 'role_id');
     }
     public function usertable(){
         return $this->morphTo();
+    }
+
+    
+    public function enseignant()
+    {
+        return $this->hasMany('App\Models\Enseignant');
     }
 }
