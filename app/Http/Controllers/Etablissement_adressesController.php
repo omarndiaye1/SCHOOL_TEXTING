@@ -10,7 +10,7 @@ class Etablissement_adressesController extends Controller
      /**
      * Create a new controller instance.
      *
-     * @param  EtablissementRepository
+     * @param  Etablissement_adressesService
      * @return void
      */
     public function __construct(Etablissement_adressesService $service)
@@ -103,7 +103,7 @@ class Etablissement_adressesController extends Controller
 
     }
 
-    function update (Request $request,$id)
+    function update ($id,Request $request)
     {
 
         try

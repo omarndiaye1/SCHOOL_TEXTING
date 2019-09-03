@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Etablissement_adresses extends Model
 {
-
+    protected $guarded=[];
 }

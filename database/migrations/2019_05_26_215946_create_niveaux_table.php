@@ -16,6 +16,8 @@ class CreateNiveauxTable extends Migration
         Schema::create('niveaux', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('libelleNiveau');
+            $table->unsignedBigInteger('departements_id');
+            //$table->foreign('departements_id')->references('id')->on('departements')->onDelete('cascade');
             $table->timestamps();
         });
     }
