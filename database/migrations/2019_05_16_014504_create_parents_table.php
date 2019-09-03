@@ -17,7 +17,7 @@ class CreateParentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('matricule');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('utilisateurs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

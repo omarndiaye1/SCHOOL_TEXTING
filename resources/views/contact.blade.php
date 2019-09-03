@@ -98,9 +98,29 @@
         <div class="field">
 
 
-            <label class="label" for="title">Fixe</label>
+            <label class="label" for="title">Adresse</label>
             <div>
-                <input class="input {{ $errors-> has('title') ? 'is-danger' : '' }}" type="text" name="fixe"  style="margin-bottom: 1em" value="{{ old('title') }}">
+                <input class="input {{ $errors-> has('title') ? 'is-danger' : '' }}" type="text" name="libelle"  style="margin-bottom: 1em" value="{{ old('title') }}">
+            </div>
+
+        </div>
+
+        <div class="field">
+
+
+            <label class="label" for="title">Ville</label>
+            <div>
+                <input class="input {{ $errors-> has('title') ? 'is-danger' : '' }}" type="text" name="ville"  style="margin-bottom: 1em" value="{{ old('title') }}">
+            </div>
+
+        </div>
+
+        <div class="field">
+
+
+            <label class="label" for="title">Pays</label>
+            <div>
+                <input class="input {{ $errors-> has('title') ? 'is-danger' : '' }}" type="text" name="pays"  style="margin-bottom: 1em" value="{{ old('title') }}">
             </div>
 
         </div>
