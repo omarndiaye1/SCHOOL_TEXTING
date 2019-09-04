@@ -32,13 +32,21 @@ class UserController  extends BaseControllers
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function getall()
+    {
+        $data = $this->service->all();
+        foreach($data as &$value){
+              $value->enseignants;
+        }
+        return $data;
+        }
     public function index()
     {
         $data = $this->service->all();
         foreach($data as &$value){
             $value->roles;
             $value->adresses;
+         
         }
         return $data;
     }
@@ -98,6 +106,13 @@ class UserController  extends BaseControllers
       $this->service->create($data);
       return response()->json($data, '201');*/
     }
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+   
 
     /**
      * Display the specified resource.
