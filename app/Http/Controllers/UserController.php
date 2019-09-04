@@ -32,13 +32,21 @@ class UserController  extends BaseControllers
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function getall()
+    {
+        $data = $this->service->all();
+        foreach($data as &$value){
+              $value->enseignants;
+        }
+        return $data;
+        }
     public function index()
     {
         $data = $this->service->all();
         foreach($data as &$value){
             $value->roles;
             $value->adresses;
+         
         }
         return $data;
     }
@@ -73,12 +81,13 @@ class UserController  extends BaseControllers
       $data['tel']=$request->post("tel");
       $data['email']=$request->post("email");
       $data['civilite']=$request->post("civilite");
+      $data['photo']=$request->post("photo");
       $data['email_verified_at'] = now();
       $data['remember_token'] = Str::random(10);
       $result=$this->service->create($data);
         //ajout adresse
       $adresse=new Adresse();
-      $adresse->libelle=$request->post("libelle");
+      $adresse->libelle=$request->post("adresse");
       $adresse->ville=$request->post("ville");
       $adresse->pays=$request->post("pays");
       $adresse->user_id= $result->id;
@@ -98,6 +107,13 @@ class UserController  extends BaseControllers
       $this->service->create($data);
       return response()->json($data, '201');*/
     }
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+   
 
     /**
      * Display the specified resource.
@@ -132,11 +148,14 @@ class UserController  extends BaseControllers
      */
     function destroy ($id)
     {
+
+        //$user=User::findorfail($id);
         User::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
             $res = $this->service->delete($id);
+            //$user->delete();
             return response()->json("Suppression effectue avec succes",'204');
         } catch (\Exception $e) {
              Log::error($e->getMessage());
@@ -144,6 +163,12 @@ class UserController  extends BaseControllers
         }
 
     }
+    /*public function destroy(User $user)
+    {
+        $user->delete();
+
+        return response()->json("Suppression effectue avec succes",'204');
+    }*/
 
     function update (Request $request,$id)
     {
@@ -151,7 +176,17 @@ class UserController  extends BaseControllers
         try
             {
                // $user= request()->user();
-                $data = $request->all();
+                //$data = $request->all();
+                $data['login']=$request->post("login");
+                $data['login']=$request->post("login");
+                $data['nom']=$request->post("nom");
+                $data['prenom']=$request->post("prenom");
+                $data['sexe']=$request->post("sexe");
+                $data['datenaissance']=$request->post("datenaissance");
+                $data['tel']=$request->post("tel");
+                $data['email']=$request->post("email");
+                $data['civilite']=$request->post("civilite");
+                $data['photo']=$request->post("photo");
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
@@ -162,4 +197,5 @@ class UserController  extends BaseControllers
             }
 
     }
+
 }
