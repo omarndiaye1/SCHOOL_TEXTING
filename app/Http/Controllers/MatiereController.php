@@ -90,7 +90,7 @@ class MatiereController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
+        Matiere::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -109,7 +109,8 @@ class MatiereController  extends BaseControllers
         try
             {
                // $user= request()->user();
-                $data = $request->all();
+                //$data = $request->all();
+                $data['libelle']=$request->post("libelle");
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
