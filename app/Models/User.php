@@ -22,6 +22,10 @@ class User extends Model
     public function adresses(){
         return $this->hasMany(Adresse::class);
     }
+    public function enseignants()
+    {
+        return $this->hasMany(Enseignant::class);
+    }
     /*public function usertable(){
         return $this->morphTo();
     }*/
