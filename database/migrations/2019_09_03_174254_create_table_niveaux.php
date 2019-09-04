@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNiveauxTable extends Migration
+class CreateTableNiveaux extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateNiveauxTable extends Migration
             $table->bigIncrements('id');
             $table->string('libelleNiveau');
             $table->unsignedBigInteger('departements_id');
-            //$table->foreign('departements_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->foreign('departements_id')->references('id')->on('departements')->onDelete('cascade');
             $table->timestamps();
         });
     }

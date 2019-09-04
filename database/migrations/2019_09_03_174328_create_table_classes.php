@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassesTable extends Migration
+class CreateTableClasses extends Migration
 {
     /**
      * Run the migrations.
@@ -19,9 +19,10 @@ class CreateClassesTable extends Migration
             $table->integer('effectif');
             $table->unsignedBigInteger('departement_id');
             $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade');
-            $table->unsignedBigInteger('niveau_id');
+            $table->unsignedBigInteger('niveau_id')->nullable();
             $table->foreign('niveau_id')->references('id')->on('niveaux')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 
