@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableNiveaux extends Migration
+class CreateAneescholaireTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateTableNiveaux extends Migration
      */
     public function up()
     {
-        Schema::create('niveaux', function (Blueprint $table) {
+        Schema::create('aneescholaires', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('libelleNiveau');
-             $table->timestamps();
+            $table->string('libelle');
+            $table->date('datedep');
+            $table->date('datefin');
+            $table->boolean('etat');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateTableNiveaux extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('niveaux');
+        Schema::dropIfExists('aneescholaire');
     }
 }
