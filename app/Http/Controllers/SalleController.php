@@ -11,7 +11,7 @@ class SalleController  extends BaseControllers
     	/**
      * Create a new controller instance.
      *
-     * @param  SalleRepository  
+     * @param  SalleRepository
      * @return void
      */
     public function __construct(SalleService $service)
@@ -27,8 +27,8 @@ class SalleController  extends BaseControllers
     public function index()
     {
         //
-      
-        $data = $this->service->all();     
+
+        $data = $this->service->all();
         return $data;
     }
 
@@ -39,7 +39,7 @@ class SalleController  extends BaseControllers
      */
     function create ()
     {
-          
+
     }
 
 
@@ -51,7 +51,9 @@ class SalleController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      $data = $request->all();
+      //$data = $request->all();
+      $data['libelle']=$request->post("libelle");
+      $data['nbrcours']=0;
       $this->service->create($data);
       return response()->json($data, '201');
     }
@@ -89,7 +91,7 @@ class SalleController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
+        Salle::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -104,11 +106,12 @@ class SalleController  extends BaseControllers
 
     function update (Request $request,$id)
     {
-    
+
         try
             {
                // $user= request()->user();
-                $data = $request->all();
+                //$data = $request->all();
+                $data['libelle']=$request->post("libelle");
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
