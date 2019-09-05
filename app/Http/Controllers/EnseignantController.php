@@ -35,7 +35,7 @@ class EnseignantController extends Controller
         $data = $this->service->all();
         foreach($data as &$value){
               $value->utilisateurs;
-          
+
         }
         return $data;
     }
@@ -70,7 +70,7 @@ class EnseignantController extends Controller
         $us->email=$request->post("email");
         $us->civilite=$request->post("civilite");
         $us->email_verified_at= now();
-        $us->save(); 
+        $us->save();
         $prof=new Enseignant();
        // $prof->matricule=$request->post("matricule");
         $specialite=$request->post("specialite");
@@ -81,20 +81,20 @@ class EnseignantController extends Controller
         $prof->save();
           //ajout adresse
           $adresse=new Adresse();
-          $adresse->libelle=$request->post("libelle");
+          $adresse->libelle=$request->post("adresse");
           $adresse->ville=$request->post("ville");
           $adresse->pays=$request->post("pays");
-          $adresse->user_id= $result->id;
+          $adresse->user_id= $us->id;
           $adresse->save();
           //ajout dans la table d'association
           $role_user=new Role_User();
           $role=new Role();
-          $role=Role::whereLibelle($request->post("role"))->firstOrFail();
+          $role=Role::whereLibelle('Enseignant')->firstOrFail();
           $role_user->role_id=$role->id;
-          $role_user->user_id= $result->id;
+          $role_user->user_id= $us->id;
           $role_user->save();
-    
-        
+
+
         return response()->json('Added succesfully');
     }
 

@@ -55,21 +55,32 @@ class AneesholaireController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      $data = $request->all();
-      $tuchi = $this->service->create($data);
+      //$data = $request->all();
+      $an = new Aneescholaire();
+      $an->libelle =$request->post("libelle");
+      $an->datedep =$request->post("datedep");
+      $an->datefin =$request->post("datefin");
+      $an->etat =$request->post("etat");
+      $an->save();
+    //   $data['libelle']=$request->post("libelle");
+    //   $data['datedep']=$request->post("datedep");
+    //   $data['datefin']=$request->post("datefin");
+    //   $data['etat']=$request->post("etat");
+    //   $tuchi = $this->service->create($data);
+
       $semenstre1 = new Semestre();
       $semenstre1->libelle = 'Premier';
       $semenstre1->etat = true;
-      $semenstre1->aneescholaire_id = $tuchi->id;
+      $semenstre1->aneescholaire_id = $an->id;
       $semenstre1->save();
 
       $semenstre2 = new Semestre();
       $semenstre2->libelle = 'Second';
       $semenstre2->etat = false;
-      $semenstre2->aneescholaire_id = $tuchi->id;
+      $semenstre2->aneescholaire_id = $an->id;
       $semenstre2->save();
 
-      return response()->json($data, '201');
+      return response()->json($an, '201');
     }
 
     /**

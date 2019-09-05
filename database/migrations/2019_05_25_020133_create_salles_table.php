@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableNiveaux extends Migration
+class CreateSallesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateTableNiveaux extends Migration
      */
     public function up()
     {
-        Schema::create('niveaux', function (Blueprint $table) {
+        Schema::create('salles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('libelleNiveau');
-            $table->unsignedBigInteger('departements_id');
-            $table->foreign('departements_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->string('libelle');
+            $table->integer('nbrcours');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateTableNiveaux extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('niveaux');
+        Schema::dropIfExists('salles');
     }
 }

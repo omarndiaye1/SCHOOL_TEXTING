@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAneescholaireTable extends Migration
+class CreateSemestreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAneescholaireTable extends Migration
      */
     public function up()
     {
-        Schema::create('aneescholaires', function (Blueprint $table) {
+        Schema::create('semestres', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('libelle');
-            $table->date('datedep');
-            $table->date('datefin');
             $table->boolean('etat');
+            $table->unsignedBigInteger('aneescholaire_id');
+            $table->foreign('aneescholaire_id')->references('id')->on('aneescholaires')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateAneescholaireTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aneescholaire');
+        Schema::dropIfExists('semestres');
     }
 }

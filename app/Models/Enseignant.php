@@ -10,6 +10,6 @@ class Enseignant extends Model
     protected $guarded=[];
     public function utilisateurs()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->hasOne(User::class,'id','user_id');
     }
 }
