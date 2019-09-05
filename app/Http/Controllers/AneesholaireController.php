@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aneescholaire;
+use App\Models\Semestre;
 use App\Service\AneescholaireService;
 
 class AneesholaireController  extends BaseControllers
@@ -55,7 +56,19 @@ class AneesholaireController  extends BaseControllers
     public function store(Request $request)
     {
       $data = $request->all();
-      $this->service->create($data);
+      $tuchi = $this->service->create($data);
+      $semenstre1 = new Semestre();
+      $semenstre1->libelle = 'Premier';
+      $semenstre1->etat = true;
+      $semenstre1->aneescholaire_id = $tuchi->id;
+      $semenstre1->save();
+
+      $semenstre2 = new Semestre();
+      $semenstre2->libelle = 'Second';
+      $semenstre2->etat = false;
+      $semenstre2->aneescholaire_id = $tuchi->id;
+      $semenstre2->save();
+
       return response()->json($data, '201');
     }
 
