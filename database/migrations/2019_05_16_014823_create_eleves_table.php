@@ -23,6 +23,8 @@ class CreateElevesTable extends Migration
             $table->string('tel');
             $table->string('adresse')->nullable();
             $table->string('email')->unique();
+            $table->unsignedBigInteger('parent_id');
+            $table->foreign('parent_id')->references('id')->on('parentes')->onDelete('cascade');
             $table->timestamps();
         });
     }

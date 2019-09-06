@@ -30,6 +30,7 @@ Route::resource('/etablissement', 'EtablissementController');
 Route::resource('/etablissement_adresse', 'Etablissement_adressesController');
 Route::resource('/aneescholaire', 'AneesholaireController');
 Route::resource('/semestre', 'SemestreController');
+Route::resource('/parent', 'ParentController');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');

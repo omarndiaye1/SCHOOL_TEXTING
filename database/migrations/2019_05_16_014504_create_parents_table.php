@@ -13,9 +13,11 @@ class CreateParentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('parents', function (Blueprint $table) {
+        Schema::create('parentes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('matricule');
+            $table->string('profession');
+            $table->string('tel2')->nullable();
+            $table->string('fixe')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
