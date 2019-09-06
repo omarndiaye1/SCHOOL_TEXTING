@@ -8,8 +8,9 @@ class Aneescholaire extends Model
 {
     //
     protected $guarded=[];
-    public function semestre(){
-        return $this->hasMany(Semestre::class);
+    public function classes()
+    {
+        return $this->hasMany(Classe::class);
     }
 
 }

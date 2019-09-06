@@ -28,10 +28,10 @@ class AneesholaireController  extends BaseControllers
     public function index()
     {
         //
-
         $data = $this->service->all();
         foreach($data as $val){
             $val->semestre;
+            $val->classes;
         }
         return $data;
     }

@@ -24,7 +24,6 @@ Route::resource('/Departement', 'DepartementController');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
 Route::resource('/utilisateurs','UserController');
-Route::resource('/Classe', 'ClasseController');
 Route::resource('/Enseignant', 'EnseignantController');
 Route::get('/Classe/getNiveaux','NiveauController@getNiveaux');
 Route::resource('/etablissement', 'EtablissementController');

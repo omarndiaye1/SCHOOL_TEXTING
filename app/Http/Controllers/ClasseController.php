@@ -13,7 +13,7 @@ class ClasseController  extends BaseControllers
     	/**
      * Create a new controller instance.
      *
-     * @param  ClasseRepository  
+     * @param  ClasseRepository
      * @return void
      */
     public function __construct(ClasseService $service)
@@ -29,9 +29,9 @@ class ClasseController  extends BaseControllers
     public function index()
     {
         //
-      
-        $tab = $this->service->all();   
-        $role=Role::whereLibelle($request->post("libelle"))->firstOrFail();  
+
+        $data = $this->service->all();
+
         return $data;
     }
 
@@ -44,14 +44,14 @@ class ClasseController  extends BaseControllers
     {
         $dep=new Departement();
         $niv=new Niveau();
-        $departements= $dep->all(); 
-        $niveaux= $niv->all(); 
+        $departements= $dep->all();
+        $niveaux= $niv->all();
         $data['niveaux']=$niveaux;
         $data['departements']=$departements;
          return response()->json($data);
-          
+
     }
-   
+
 
     /**
      * Store a newly created resource in storage.
@@ -61,12 +61,9 @@ class ClasseController  extends BaseControllers
      */
     public function store(Request $request)
     {
-        $data['libelleClasse']=$request->post("email");
-        $data['effectif']=$request->post("civilite");
-        $result=$this->service->create($data);
-        $data = $request->all();
-        $this->service->create($data);
-        return response()->json($data, '201');
+      $data = $request->all();
+      $this->service->create($data);
+      return response()->json($data, '201');
     }
 
     /**
@@ -117,7 +114,7 @@ class ClasseController  extends BaseControllers
 
     function update (Request $request,$id)
     {
-    
+
         try
             {
                // $user= request()->user();
