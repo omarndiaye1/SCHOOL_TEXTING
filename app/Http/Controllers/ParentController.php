@@ -36,11 +36,11 @@ class ParentController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-        /*foreach($data as &$value){
-            $value->roles;
+        foreach($data as &$value){
+            $value->utilisateurs;
+            $value->enfants;
             $value->adresses;
-
-        }*/
+        }
         return $data;
     }
 

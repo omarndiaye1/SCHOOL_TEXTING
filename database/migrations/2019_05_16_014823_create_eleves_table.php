@@ -18,13 +18,13 @@ class CreateElevesTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('sexe');
-            $table->date('datenaissance');
-            $table->date('lieu');
-            $table->string('tel');
+            $table->string('datenaissance');
+            $table->string('lieu');
+            $table->string('tel')->nullable();
             $table->string('adresse')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('parent_id');
-            $table->foreign('parent_id')->references('id')->on('parentes')->onDelete('cascade');
+            $table->unsignedBigInteger('parente_id');
+            $table->foreign('parente_id')->references('id')->on('parentes')->onDelete('cascade');
             $table->timestamps();
         });
     }
