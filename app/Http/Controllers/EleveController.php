@@ -7,14 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Adresse;
+use App\Models\Eleve;
 use App\Models\Parente;
 use App\Models\Role;
 use App\Models\Role_User;
-use App\Service\ParentService;
+use App\Service\EleveService;
 use Illuminate\Support\Str;
 
 
-class ParentController  extends BaseControllers
+class EleveController  extends BaseControllers
 {
 
 
@@ -24,7 +25,7 @@ class ParentController  extends BaseControllers
      * @param  UserRepository
      * @return void
      */
-    public function __construct(ParentService $service)
+    public function __construct(EleveService $service)
     {
         $this->service = $service;
     }
@@ -37,11 +38,11 @@ class ParentController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-        foreach($data as &$value){
+        /*foreach($data as &$value){
             $value->utilisateurs;
             $value->enfants;
             $value->adresses;
-        }
+        }*/
         return $data;
     }
 
@@ -66,44 +67,22 @@ class ParentController  extends BaseControllers
      */
     public function store(Request $request)
     {
-        $us= new User();
-        $us->login=$request->post("login");
-        $us->password=$request->post("password");
-        $us->nom=$request->post("nom");
-        $us->prenom=$request->post("prenom");
-        $us->sexe=$request->post("sexe");
-        $us->datenaissance=$request->post("datenaissance");
-        $us->tel=$request->post("tel");
-        $us->email=$request->post("email");
-        $us->civilite=$request->post("civilite");
-        $us->photo= $request->post("photo");
-        $us->email_verified_at= now();
-        $us->remember_token= Str::random(10);
-        $us->save();
-
-        //Ajout Parent
-        $par=new Parente();
-        $par->profession = $request->post("profession");
-        $par->tel2 = $request->post("tel2");
-        $par->fixe = $request->post("fixe");
-        $par->user_id = $us->id;
-        $par->save();
-
-        //Ajout adresse
-        $adresse=new Adresse();
-        $adresse->libelle=$request->post("adresse");
-        $adresse->ville=$request->post("ville");
-        $adresse->pays=$request->post("pays");
-        $adresse->user_id= $us->id;
-        $adresse->save();
-
-        //Ajout dans la table d'association
-        $role_user=new Role_User();
-        $role=new Role();
-        $role=Role::whereLibelle($request->post("role"))->firstOrFail();
-        $role_user->role_id=$role->id;
-        $role_user->user_id= $us->id;
-        $role_user->save();
+        //Add Eleve
+        $el= new Eleve();
+        $el->nom = $request->post("nom");
+        $el->prenom = $request->post("prenom");
+        $el->sexe = $request->post("sexe");
+        $el->datenaissance = $request->post("datenaissance");
+        $el->lieu = $request->post("lieu");
+        $el->tel = $request->post("tel");
+        $el->adresse = $request->post("adresse");
+        $el->photo = $request->post("photo");
+        $el->email = $request->post("email");
+        $el->ville = $request->post("ville");
+        $el->pays = $request->post("pays");
+        $el->parente_id = $request->post("parent_id");
+        $el->classe_id = $request->post("classe_id");
+        $el->save();
 
         return response()->json('Added succesfully');
 

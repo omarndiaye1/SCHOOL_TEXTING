@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateElevesTable extends Migration
+class CreateEleveTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,8 +23,13 @@ class CreateElevesTable extends Migration
             $table->string('tel')->nullable();
             $table->string('adresse')->nullable();
             $table->string('email')->unique();
+            $table->string('ville')->nullable();
+            $table->string('pays')->nullable();
+            $table->longText('photo')->nullable();
             $table->unsignedBigInteger('parente_id');
-            $table->foreign('parente_id')->references('id')->on('parentes')->onDelete('cascade');
+            $table->foreign('parente_id')->references('id')->on('parentes');
+            $table->unsignedBigInteger('classe_id');
+            $table->foreign('classe_id')->references('id')->on('classes');
             $table->timestamps();
         });
     }
