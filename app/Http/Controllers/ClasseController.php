@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\Departement;
 use App\Models\Niveau;
 use App\Service\ClasseService;
+use DB;
 
 class ClasseController  extends BaseControllers
 {
@@ -128,5 +129,10 @@ class ClasseController  extends BaseControllers
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
+    }
+    public function showClasse($departement_id,$niveau_id) {
+        $qry = 'SELECT * FROM classes WHERE departement_id LIKE "'.$departement_id.'" AND niveau_id LIKE "'.$niveau_id.'%" ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
     }
 }

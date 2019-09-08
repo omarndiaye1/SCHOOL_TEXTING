@@ -13,7 +13,7 @@ use App\Models\Role;
 use App\Models\Role_User;
 use App\Service\EleveService;
 use Illuminate\Support\Str;
-
+use DB;
 
 class EleveController  extends BaseControllers
 {
@@ -178,5 +178,12 @@ class EleveController  extends BaseControllers
             }
 
     }
+    public function showDetails($idParent) {
+        $qry = 'SELECT DISTINCT e.id,e.nom,e.prenom,e.datenaissance,e.lieu,cl.libelleClasse FROM parentes p,eleves e,classes cl WHERE e.parente_id LIKE "'.$idParent.'" AND e.classe_id = cl.id ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
 
 }

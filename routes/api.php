@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
 
 /*
@@ -16,7 +15,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
+Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
 Route::resource('/role', 'RoleController');
 Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
