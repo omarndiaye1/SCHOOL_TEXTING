@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\UserController ;
 use App\Models\Enseignant;
 use App\Models\User;
 use App\Models\Adresse;
@@ -35,6 +36,8 @@ class EnseignantController extends Controller
         $data = $this->service->all();
         foreach($data as &$value){
               $value->utilisateurs;
+              $value->utilisateurs->adresses;
+              $value->utilisateurs->roles;
 
         }
         return $data;
@@ -131,6 +134,7 @@ class EnseignantController extends Controller
      */
     function destroy ($id)
     {
+        //User::destroy($id);
         Enseignant::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
@@ -146,19 +150,40 @@ class EnseignantController extends Controller
 
     function update (Request $request,$id)
     {
-
         try
-            {
-               // $user= request()->user();
-                $data = $request->all();
-                $res = $this->service->update($data, $id);
-                if ($res) {
-                    return response()->json($res, '201');
-                }
-            } catch (\Exception $e) {
-                 Log::error($e->getMessage());
-                        return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
+        {
+           // $user= request()->user();
+            //$data = $request->all();
+            
+        $specialite=$request->post("specialite");
+        $data['specialite']=$specialite;
+        $data['matricule']=$specialite.'00'.$request->post("idU");
+        $data['user_id']=$request->post("idU");
+        $res = $this->service->update($data, $id);
+        $us=User::find($data['user_id']);
+        $us->login=$request->post("login");
+        $us->nom=$request->post("nom");
+        $us->prenom=$request->post("prenom");
+        $us->sexe=$request->post("sexe");
+        $us->datenaissance=$request->post("datenaissance");
+        $us->tel=$request->post("tel");
+        $us->email=$request->post("email");
+        $us->photo=$request->post("photo");
+        $us->civilite=$request->post("civilite");
+        $us->email_verified_at= now();
+        $us->save();
+        //$u=new UserController ();
+        //$u->update($request,$request->post("idU"));
+        if ($res) {
+                return response()->json($res, '201');
             }
+       
+        } catch (\Exception $e) {
+             Log::error($e->getMessage());
+                    return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
+        }
+
+       
 
     }
 }
