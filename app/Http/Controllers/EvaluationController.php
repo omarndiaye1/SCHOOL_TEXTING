@@ -1,23 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
-use App\Models\Classe;
-use App\Models\Departement;
-use App\Models\Niveau;
-use App\Service\ClasseService;
-use DB;
-
-class ClasseController  extends BaseControllers
+use App\Models\Etablissement;
+use App\Service\EvaluationService;
+class EvaluationController extends Controller
 {
-    	/**
+     /**
      * Create a new controller instance.
      *
-     * @param  ClasseRepository
+     * @param  EvaluationService
      * @return void
      */
-    public function __construct(ClasseService $service)
+    public function __construct(EvaluationService $service)
     {
         $this->service = $service;
     }
@@ -31,7 +27,10 @@ class ClasseController  extends BaseControllers
     {
         //
 
-        $data = $this->service->all();
+         $data = $this->service->all();
+        foreach($data as $val){
+            $val->note;
+        }
         return $data;
     }
 
@@ -42,13 +41,6 @@ class ClasseController  extends BaseControllers
      */
     function create ()
     {
-        $dep=new Departement();
-        $niv=new Niveau();
-        $departements= $dep->all();
-        $niveaux= $niv->all();
-        $data['niveaux']=$niveaux;
-        $data['departements']=$departements;
-         return response()->json($data);
 
     }
 
@@ -61,8 +53,10 @@ class ClasseController  extends BaseControllers
      */
     public function store(Request $request)
     {
+
       $data = $request->all();
-      $this->service->create($data);
+
+      $data = $this->service->create($data);
       return response()->json($data, '201');
     }
 
@@ -75,11 +69,7 @@ class ClasseController  extends BaseControllers
     public function show($id)
     {
         //
-     $data =  $this->service->find($id);
-     foreach($data as $val){
-        $val->eleve;
-        $val->evaluation;
-    }
+     $data=  $this->service->find($id);
         return response()->json($data, '200');
     }
 
@@ -103,7 +93,7 @@ class ClasseController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
+        Etablissement::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -132,10 +122,5 @@ class ClasseController  extends BaseControllers
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
-    }
-    public function showClasse($departement_id,$niveau_id) {
-        $qry = 'SELECT * FROM classes WHERE departement_id LIKE "'.$departement_id.'" AND niveau_id LIKE "'.$niveau_id.'%" ' ;
-        $data = DB::select($qry);
-        return response()->json($data, '200');
     }
 }
