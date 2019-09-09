@@ -8,6 +8,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Adresse;
 use App\Models\Eleve;
+use App\Models\Inscription;
 use App\Models\Parente;
 use App\Models\Role;
 use App\Models\Role_User;
@@ -83,6 +84,14 @@ class EleveController  extends BaseControllers
         $el->parente_id = $request->post("parent_id");
         $el->classe_id = $request->post("classe_id");
         $el->save();
+
+        //Add Inscription
+        $ins = new Inscription();
+        $ins->eleve_id = $el->id;
+        $ins->classe_id = $request->post("classe_id");
+        $ins->anneescolaire_id = $request->post("annee_id");
+        $ins->redoublant = 0;
+        $ins->save();
 
         return response()->json('Added succesfully');
 
@@ -180,6 +189,26 @@ class EleveController  extends BaseControllers
     }
     public function showDetails($idParent) {
         $qry = 'SELECT DISTINCT e.id,e.nom,e.prenom,e.datenaissance,e.lieu,cl.libelleClasse FROM parentes p,eleves e,classes cl WHERE e.parente_id LIKE "'.$idParent.'" AND e.classe_id = cl.id ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function showDetailsEleve() {
+        $qry = 'SELECT e.id,e.nom,e.prenom,e.sexe,e.email,e.datenaissance,e.lieu,e.adresse,e.ville,e.pays,e.photo,
+        cl.id as idClasse,cl.libelleClasse,cl.departement_id, cl.niveau_id,
+        p.profession,p.id as parent_id,u.nom as nomparent,u.prenom as prenomparent,u.email as parentemail,u.civilite,u.tel as parentTel,p.tel2,u.photo as parentphoto
+        FROM parentes p,eleves e,classes cl,users u WHERE e.parente_id =p.id AND e.classe_id = cl.id AND p.user_id = u.id' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function showDetailsEleve2($idanne,$idclasse) {
+        $qry = 'SELECT e.id,e.nom,e.prenom,e.sexe,e.email,e.datenaissance,e.lieu,e.adresse,e.ville,e.pays,e.photo,
+        cl.id as idClasse,cl.libelleClasse,cl.departement_id, cl.niveau_id,
+        p.profession,p.id as parent_id,u.nom as nomparent,u.prenom as prenomparent,u.email as parentemail,u.civilite,u.tel as parentTel,p.tel2,u.photo as parentphoto
+        FROM parentes p,eleves e,classes cl,users u,inscription i WHERE e.parente_id =p.id AND e.classe_id = cl.id AND p.user_id = u.id AND e.id = i.eleve_id AND i.anneescolaire_id = "'.$idanne.'" AND e.classe_id = "'.$idclasse.'" ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
         $data = DB::select($qry);
         return response()->json($data, '200');
