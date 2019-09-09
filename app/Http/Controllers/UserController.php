@@ -177,7 +177,7 @@ class UserController  extends BaseControllers
             {
                // $user= request()->user();
                 //$data = $request->all();
-                $data['login']=$request->post("login");
+               // $data['login']=$request->post("login");
                 $data['login']=$request->post("login");
                 $data['nom']=$request->post("nom");
                 $data['prenom']=$request->post("prenom");
