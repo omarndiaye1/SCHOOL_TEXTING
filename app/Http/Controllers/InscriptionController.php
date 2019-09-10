@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inscription;
+use App\Models\User;
+use App\Models\Adresse;
+use App\Models\Eleve;
+use App\Models\Parente;
+use App\Models\Role;
+use App\Models\Role_User;
 use App\Service\InscriptionService;
+use Illuminate\Support\Str;
 
 class InscriptionController  extends BaseControllers
 {
@@ -51,11 +58,74 @@ class InscriptionController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      //$data = $request->all();
-      $data['libelle']=$request->post("libelle");
-      $data['nbrcours']=0;
-      $this->service->create($data);
-      return response()->json($data, '201');
+        $us= new User();
+        $us->login=$request->post("login");
+        $us->password=$request->post("password");
+        $us->nom=$request->post("nomP");
+        $us->prenom=$request->post("prenomP");
+        $us->sexe=$request->post("sexeP");
+        $us->datenaissance=$request->post("datenaissanceP");
+        $us->tel=$request->post("telP");
+        $us->email=$request->post("emailP");
+        $us->civilite=$request->post("civilite");
+        $us->photo= $request->post("photoP");
+        $us->email_verified_at= now();
+        $us->remember_token= Str::random(10);
+        $us->save();
+
+        //Ajout Parent
+        $par=new Parente();
+        $par->profession = $request->post("profession");
+        $par->tel2 = $request->post("tel2");
+        $par->fixe = $request->post("fixe");
+        $par->user_id = $us->id;
+        $par->save();
+
+        //Ajout adresse
+        $adresse=new Adresse();
+        $adresse->libelle=$request->post("adresseP");
+        $adresse->ville=$request->post("villeP");
+        $adresse->pays=$request->post("paysP");
+        $adresse->user_id= $us->id;
+        $adresse->save();
+
+        //Ajout dans la table d'association
+        $role_user=new Role_User();
+        $role=new Role();
+        $role=Role::whereLibelle($request->post("role"))->firstOrFail();
+        $role_user->role_id=$role->id;
+        $role_user->user_id= $us->id;
+        $role_user->save();
+
+        //Add Eleve
+        $el= new Eleve();
+        $el->nom = $request->post("nom");
+        $el->prenom = $request->post("prenom");
+        $el->sexe = $request->post("sexe");
+        $el->datenaissance = $request->post("datenaissance");
+        $el->lieu = $request->post("lieu");
+        $el->tel = $request->post("tel");
+        $el->adresse = $request->post("adresse");
+        $el->photo = $request->post("photo");
+        $el->email = $request->post("email");
+        $el->ville = $request->post("ville");
+        $el->pays = $request->post("pays");
+        $el->parente_id = $par->id;
+        $el->classe_id = $request->post("classe_id");
+        $el->save();
+
+        //Add Inscription
+        $ins = new Inscription();
+        $ins->eleve_id = $el->id;
+        $ins->classe_id = $request->post("classe_id");
+        $ins->anneescolaire_id = $request->post("annee_id");
+        $ins->redoublant = 0;
+        $ins->save();
+
+        $qry = 'UPDATE classes SET effectif = effectif + 1 WHERE id LIKE  "'.$ins->classe_id.'" ' ;
+        DB::update($qry);
+
+        return response()->json('Added succesfully');
     }
 
     /**
