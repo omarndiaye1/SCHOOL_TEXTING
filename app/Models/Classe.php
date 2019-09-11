@@ -20,6 +20,14 @@ class Classe extends Model
 
     public function evaluation(){
         return $this->hasMany(Evaluation::class);
+
+    }
+    //return $this->hasOne(Eleve::class,'id','eleve_id');
+
+    public function inscription(){
+        $data =  $this->hasMany(Inscription::class);
+
+        return $data;
     }
 
 }

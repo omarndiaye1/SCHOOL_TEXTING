@@ -27,10 +27,12 @@ class EvaluationController extends Controller
     {
         //
 
-         $data = $this->service->all();
-        foreach($data as $val){
+         $data = $this->service->triesome();
+         foreach($data as $val){
             $val->note;
-        }
+            $val->matiere;
+            $val->classe;
+         }
         return $data;
     }
 
@@ -93,8 +95,8 @@ class EvaluationController extends Controller
      */
     function destroy ($id)
     {
-        Etablissement::destroy($id);
-        return response()->json("delete avec succes",'204');
+        //Etablissement::destroy($id);
+        //return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
             $res = $this->service->delete($id);

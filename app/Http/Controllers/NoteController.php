@@ -67,7 +67,8 @@ class NoteController extends Controller
     public function show($id)
     {
         //
-     $data=  $this->service->find($id);
+     $data = $this->service->find($id);
+     $data->eleve;
         return response()->json($data, '200');
     }
 

@@ -16,8 +16,12 @@ class CreateEvaluationTable extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('libelle');
-            $table->unsignedBigInteger('classes_id');
-            $table->foreign('classes_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->unsignedBigInteger('classe_id');
+            $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->unsignedBigInteger('matiere_id');
+            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
+            $table->unsignedBigInteger('semestre_id');
+            $table->foreign('semestre_id')->references('id')->on('semestres')->onDelete('cascade');
             $table->timestamps();
         });
     }

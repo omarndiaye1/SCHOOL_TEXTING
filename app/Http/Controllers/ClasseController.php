@@ -32,6 +32,7 @@ class ClasseController  extends BaseControllers
         //
 
         $data = $this->service->all();
+
         return $data;
     }
 
@@ -75,11 +76,24 @@ class ClasseController  extends BaseControllers
     public function show($id)
     {
         //
+
+            // $qry = 'SELECT e.id,e.nom,e.prenom,e.sexe,e.email,e.datenaissance,e.lieu,e.adresse,e.ville,e.pays,e.photo,
+            // cl.id as idClasse,cl.libelleClasse,cl.departement_id, cl.niveau_id,
+            // p.profession,p.id as parent_id,u.nom as nomparent,u.prenom as prenomparent,u.email as parentemail,u.civilite,u.tel as parentTel,p.tel2,u.photo as parentphoto
+            // FROM parentes p,eleves e,classes cl,users u WHERE e.parente_id =p.id AND e.classe_id = cl.id AND p.user_id = u.id' ;
+            // //$qry = 'SELECT * FROM eleves e ' ;
+            // $data = DB::select($qry);
+            // return response()->json($data, '200');
+
+
      $data =  $this->service->find($id);
-     foreach($data as $val){
-        $val->eleve;
-        $val->evaluation;
-    }
+        //$data1 =
+        // $data->evaluation;
+        $data1['insc'] =  $data->inscription;
+         foreach($data1['insc'] as &$value){
+             $value->eleves;
+             //$value->adresses;
+         }
         return response()->json($data, '200');
     }
 

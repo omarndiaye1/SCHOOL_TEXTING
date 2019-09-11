@@ -16,12 +16,10 @@ class CreateNoteTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('value');
-            $table->unsignedBigInteger('eleves_id');
-            $table->foreign('eleves_id')->references('id')->on('eleves')->onDelete('cascade');
-            $table->unsignedBigInteger('evaluations_id');
-            $table->foreign('evaluations_id')->references('id')->on('evaluations')->onDelete('cascade');
-            $table->unsignedBigInteger('matieres_id');
-            $table->foreign('matieres_id')->references('id')->on('matieres')->onDelete('cascade');
+            $table->unsignedBigInteger('eleve_id')->unique();
+            $table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
+            $table->unsignedBigInteger('evaluation_id');
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
            $table->timestamps();
         });
     }

@@ -28,11 +28,8 @@ class SemestreController  extends BaseControllers
     {
         //
 
-        $data = $this->service->all();
-        foreach($data as $val){
-            $val->semestre;
-        }
-        return $data;
+        return $this->service->triesome();
+
     }
 
     /**
