@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
-use App\Models\Aneescholaire;
-use App\Service\SemestreService;
-
-class SemestreController  extends BaseControllers
+use App\Models\Etablissement;
+use App\Service\NoteService;
+class NoteController extends Controller
 {
-    	/**
+     /**
      * Create a new controller instance.
      *
-     * @param  DepartementRepository
+     * @param  NoteService
      * @return void
      */
-    public function __construct(SemestreService $service)
+    public function __construct(NoteService $service)
     {
         $this->service = $service;
     }
@@ -28,8 +27,9 @@ class SemestreController  extends BaseControllers
     {
         //
 
-        return $this->service->triesome();
+         $data = $this->service->all();
 
+        return $data;
     }
 
     /**
@@ -51,13 +51,15 @@ class SemestreController  extends BaseControllers
      */
     public function store(Request $request)
     {
+
       $data = $request->all();
+
       $this->service->create($data);
       return response()->json($data, '201');
     }
 
     /**
-     * Display the specified aresource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -65,7 +67,8 @@ class SemestreController  extends BaseControllers
     public function show($id)
     {
         //
-     $data=  $this->service->find($id);
+     $data = $this->service->find($id);
+     $data->eleve;
         return response()->json($data, '200');
     }
 
@@ -89,7 +92,7 @@ class SemestreController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
+        Etablissement::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();

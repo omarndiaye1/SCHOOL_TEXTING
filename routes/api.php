@@ -35,6 +35,8 @@ Route::resource('/aneescholaire', 'AneesholaireController');
 Route::resource('/semestre', 'SemestreController');
 Route::resource('/parent', 'ParentController');
 Route::resource('/eleve', 'EleveController');
+Route::resource('/evaluation', 'EvaluationController');
+Route::resource('/note', 'NoteController');
 Route::resource('/inscription', 'InscriptionController');
 Route::post('/reinscription','InscriptionController@reinscription');
 /* Route::get('/roles/create','RoleController@create');

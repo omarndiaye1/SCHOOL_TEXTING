@@ -8,4 +8,8 @@ class Inscription extends Model
 {
     //
     protected $guarded=[];
+    public function eleves()
+    {
+        return $this->hasOne(Eleve::class,'id','eleve_id');
+    }
 }

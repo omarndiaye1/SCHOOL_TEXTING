@@ -33,9 +33,13 @@ class InscriptionController  extends BaseControllers
 
     public function index()
     {
-        //
+        //eleves
 
         $data = $this->service->all();
+        foreach($data as &$value){
+            $value->eleves;
+            //$value->adresses;
+        }
         return $data;
     }
 
