@@ -68,6 +68,7 @@ class EleveController  extends BaseControllers
      */
     public function store(Request $request)
     {
+
         //Add Eleve
         $el= new Eleve();
         $el->nom = $request->post("nom");
@@ -93,10 +94,15 @@ class EleveController  extends BaseControllers
         $ins->redoublant = 0;
         $ins->save();
 
+        $qry = 'UPDATE classes SET effectif = effectif + 1 WHERE id LIKE  "'.$ins->classe_id.'" ' ;
+        DB::update($qry);
+
         return response()->json('Added succesfully');
 
 
     }
+
+
      /**
      * Store a newly created resource in storage.
      *
@@ -208,7 +214,7 @@ class EleveController  extends BaseControllers
         $qry = 'SELECT e.id,e.nom,e.prenom,e.sexe,e.email,e.datenaissance,e.lieu,e.adresse,e.ville,e.pays,e.photo,
         cl.id as idClasse,cl.libelleClasse,cl.departement_id, cl.niveau_id,
         p.profession,p.id as parent_id,u.nom as nomparent,u.prenom as prenomparent,u.email as parentemail,u.civilite,u.tel as parentTel,p.tel2,u.photo as parentphoto
-        FROM parentes p,eleves e,classes cl,users u,inscription i WHERE e.parente_id =p.id AND e.classe_id = cl.id AND p.user_id = u.id AND e.id = i.eleve_id AND i.anneescolaire_id = "'.$idanne.'" AND e.classe_id = "'.$idclasse.'" ' ;
+        FROM parentes p,eleves e,classes cl,users u,inscriptions i WHERE e.parente_id =p.id AND i.classe_id = cl.id AND p.user_id = u.id AND e.id = i.eleve_id AND i.anneescolaire_id = "'.$idanne.'" AND i.classe_id = "'.$idclasse.'" ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
         $data = DB::select($qry);
         return response()->json($data, '200');

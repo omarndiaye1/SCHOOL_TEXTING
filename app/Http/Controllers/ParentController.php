@@ -105,6 +105,11 @@ class ParentController  extends BaseControllers
         $role_user->user_id= $us->id;
         $role_user->save();
 
+        // Mail::to($us->email)->send(
+
+        //     new Usercreated($us)
+        // );
+
         return response()->json('Added succesfully');
 
 

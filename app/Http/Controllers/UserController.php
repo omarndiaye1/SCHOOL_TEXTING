@@ -10,6 +10,8 @@ use App\Models\Adresse;
 use App\Models\Role;
 use App\Models\Role_User;
 use App\Service\UserService;
+use CreateRoleUsersTable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
@@ -46,7 +48,7 @@ class UserController  extends BaseControllers
         foreach($data as &$value){
             $value->roles;
             $value->adresses;
-         
+
         }
         return $data;
     }
@@ -100,6 +102,7 @@ class UserController  extends BaseControllers
       $role_user->user_id= $result->id;
       $role_user->save();
 
+
       return response()->json('Added succesfully');
 
       /*$data = $request->all();
@@ -113,7 +116,7 @@ class UserController  extends BaseControllers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   
+
 
     /**
      * Display the specified resource.

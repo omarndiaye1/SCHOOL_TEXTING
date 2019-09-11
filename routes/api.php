@@ -16,8 +16,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
+Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
+Route::resource('/inscription', 'InscriptionController');
 Route::resource('/role', 'RoleController');
 Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
@@ -36,6 +38,7 @@ Route::resource('/eleve', 'EleveController');
 Route::resource('/evaluation', 'EvaluationController');
 Route::resource('/note', 'NoteController');
 Route::resource('/inscription', 'InscriptionController');
+Route::post('/reinscription','InscriptionController@reinscription');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');

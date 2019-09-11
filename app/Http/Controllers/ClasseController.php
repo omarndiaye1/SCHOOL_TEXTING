@@ -152,4 +152,9 @@ class ClasseController  extends BaseControllers
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
+    public function showClasseWithoutLevel($departement_id) {
+        $qry = 'SELECT * FROM classes WHERE departement_id LIKE "'.$departement_id.'" AND niveau_id is NULL ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
 }
