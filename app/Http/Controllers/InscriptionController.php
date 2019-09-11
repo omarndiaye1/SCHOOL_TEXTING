@@ -12,7 +12,7 @@ use App\Models\Role;
 use App\Models\Role_User;
 use App\Service\InscriptionService;
 use Illuminate\Support\Str;
-
+use DB;
 class InscriptionController  extends BaseControllers
 {
     	/**
@@ -127,6 +127,27 @@ class InscriptionController  extends BaseControllers
 
         return response()->json('Added succesfully');
     }
+
+    public function reinscription(Request $request)
+    {
+
+        //Add Reinscription
+        $ins = new Inscription();
+        $ins->eleve_id = $request->post("id");
+        $ins->classe_id = $request->post("classe_id");
+        $ins->anneescolaire_id = $request->post("annee_id");
+        $ins->redoublant = $request->post("redoublant");
+        $ins->save();
+
+        $qry = 'UPDATE classes SET effectif = effectif + 1 WHERE id LIKE  "'.$ins->classe_id.'" ' ;
+        DB::update($qry);
+
+        $qry2 = 'UPDATE eleves SET classe_id = "'.$ins->classe_id.'" WHERE id LIKE  "'. $ins->eleve_id.'" ' ;
+        DB::update($qry2);
+
+        return response()->json('Eleve reinscrit succesfully');
+    }
+
 
     /**
      * Display the specified resource.
