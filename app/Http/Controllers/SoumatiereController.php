@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-header("Access-Control-Allow-Origin: *");
-use Illuminate\Http\Request;
-use App\Models\Matiere;
-use App\Service\HoraireService;
 
-class HoraireController  extends BaseControllers
+use Illuminate\Http\Request;
+use App\Models\Niveau;
+use App\Service\SoumatiereService;
+
+class SoumatiereController  extends BaseControllers
 {
-   /**
+    	/**
      * Create a new controller instance.
      *
-     * @param  HoraireService
+     * @param  SoumatiereService
      * @return void
      */
-    public function __construct(HoraireService $service)
+    public function __construct(SoumatiereService $service)
     {
         $this->service = $service;
     }
@@ -29,9 +29,6 @@ class HoraireController  extends BaseControllers
         //
 
         $data = $this->service->all();
-        foreach($data as $val){
-            $val->cour;
-        }
         return $data;
     }
 
@@ -92,7 +89,7 @@ class HoraireController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Matiere::destroy($id);
+        Role::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -111,8 +108,7 @@ class HoraireController  extends BaseControllers
         try
             {
                // $user= request()->user();
-                //$data = $request->all();
-                $data['libelle']=$request->post("libelle");
+                $data = $request->all();
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');

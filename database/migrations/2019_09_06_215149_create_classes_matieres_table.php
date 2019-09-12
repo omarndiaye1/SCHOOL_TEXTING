@@ -15,7 +15,12 @@ class CreateClassesMatieresTable extends Migration
     {
         Schema::create('classes_matieres', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->integer('coeficient');
+            $table->unsignedBigInteger('matiere_id');
+            $table->foreign('matiere_id')->references('id')->on('matieres');
+            $table->unsignedBigInteger('classe_id');
+            $table->foreign('classe_id')->references('id')->on('classes');
+           $table->timestamps();
         });
     }
 

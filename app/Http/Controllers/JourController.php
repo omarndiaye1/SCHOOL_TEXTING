@@ -30,6 +30,9 @@ class JourController  extends BaseControllers
         //
 
         $data = $this->service->all();
+        foreach($data as $val){
+            $val->cour;
+        }
         return $data;
     }
 

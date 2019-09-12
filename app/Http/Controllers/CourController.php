@@ -50,8 +50,8 @@ class CourController  extends BaseControllers
     public function store(Request $request)
     {
       $data = $request->all();
-      $this->service->create($data);
-      return response()->json($data, '201');
+      $data = $this->service->create($data);
+      return response()->json($data);
     }
 
     /**
