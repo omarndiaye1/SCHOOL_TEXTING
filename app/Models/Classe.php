@@ -29,5 +29,10 @@ class Classe extends Model
 
         return $data;
     }
+    public function cour(){
+        $data =  $this->hasMany(Cour::class);
+
+        return $data;
+    }
 
 }

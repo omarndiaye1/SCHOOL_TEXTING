@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\Departement;
 use App\Models\Niveau;
 use App\Service\ClasseService;
+use App\Models\Cour;
 use DB;
 
 class ClasseController  extends BaseControllers
@@ -17,6 +18,7 @@ class ClasseController  extends BaseControllers
      * @param  ClasseRepository
      * @return void
      */
+
     public function __construct(ClasseService $service)
     {
         $this->service = $service;
@@ -32,6 +34,22 @@ class ClasseController  extends BaseControllers
         //
 
         $data = $this->service->all();
+
+        return $data;
+    }
+    public function getCour($id)
+    {
+
+
+        $data = $this->service->find($id);
+        $data->cour;
+        foreach($data->cour as $val){
+            $val->matiere;
+            $val->prof;
+            $val->prof->utilisateurs;
+            $val->salle;
+        }
+
 
         return $data;
     }

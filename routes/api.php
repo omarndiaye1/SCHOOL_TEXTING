@@ -44,6 +44,7 @@ Route::resource('/horaire', 'HoraireController');
 Route::resource('/cour', 'CourController');
 Route::resource('/typeevaluation', 'TypeevaluationController');
 Route::resource('/soumatiere', 'SoumatiereController');
+Route::get('/Classe/getCour/{id}','ClasseController@getCour');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');
