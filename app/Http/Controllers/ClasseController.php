@@ -41,9 +41,9 @@ class ClasseController  extends BaseControllers
     {
 
 
-        $data = $this->service->find($id);
-        $data->cour;
-        foreach($data->cour as $val){
+        $data[0] = $this->service->find($id);
+        $data[0]->cour;
+        foreach($data[0]->cour as $val){
             $val->matiere;
             $val->prof;
             $val->prof->utilisateurs;
