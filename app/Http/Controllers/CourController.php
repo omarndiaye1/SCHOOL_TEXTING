@@ -27,6 +27,7 @@ class CourController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
+       /// $data[0]->matiere;
         return $data;
     }
 
@@ -50,8 +51,8 @@ class CourController  extends BaseControllers
     public function store(Request $request)
     {
       $data = $request->all();
-      $this->service->create($data);
-      return response()->json($data, '201');
+      $data = $this->service->create($data);
+      return response()->json($data);
     }
 
     /**
@@ -87,8 +88,6 @@ class CourController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
-        return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
             $res = $this->service->delete($id);

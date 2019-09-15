@@ -20,7 +20,7 @@ class CreateNoteTable extends Migration
             $table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
             $table->unsignedBigInteger('evaluation_id');
             $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
-           $table->timestamps();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateNoteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('note');
+        Schema::dropIfExists('notes');
     }
 }
