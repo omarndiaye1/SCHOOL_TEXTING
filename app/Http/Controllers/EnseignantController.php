@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController ;
 use App\Models\Enseignant;
 use App\Models\User;
 use App\Models\Adresse;
+use App\Models\Matiere;
 use App\Models\Role;
 use App\Models\Role_User;
 use App\Service\UserService;
@@ -74,10 +75,13 @@ class EnseignantController extends Controller
         $us->civilite=$request->post("civilite");
         $us->email_verified_at= now();
         $us->save();
+        $matiere=new Matiere();
+        $matiere=Matiere::whereLibelle($request->post("specialite"))->firstOrFail();
         $prof=new Enseignant();
        // $prof->matricule=$request->post("matricule");
         $specialite=$request->post("specialite");
         $prof->specialite=$specialite;
+        $prof->matiere_id=$matiere->id;
         $prof->matricule=$specialite.'00'.$us->id;
        // $prof->specialite="specialite";
         $prof->user_id=$us->id;
@@ -154,13 +158,17 @@ class EnseignantController extends Controller
         {
            // $user= request()->user();
             //$data = $request->all();
-            
+        $matiere=new Matiere();
+        $matiere=Matiere::whereLibelle($request->post("specialite"))->firstOrFail();
+        //------------------------------------------------//
         $specialite=$request->post("specialite");
         $data['specialite']=$specialite;
         $data['matricule']=$specialite.'00'.$request->post("idU");
         $data['user_id']=$request->post("idU");
+        $data['matiere_id']=$matiere->id;
         $res = $this->service->update($data, $id);
         $us=User::find($data['user_id']);
+        
         $us->login=$request->post("login");
         $us->nom=$request->post("nom");
         $us->prenom=$request->post("prenom");

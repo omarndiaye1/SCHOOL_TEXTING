@@ -24,6 +24,7 @@ Route::resource('/role', 'RoleController');
 Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
+Route::resource('/Paiement', 'PaiementController');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
 Route::resource('/utilisateurs','UserController');
