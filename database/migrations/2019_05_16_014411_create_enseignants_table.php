@@ -19,6 +19,8 @@ class CreateEnseignantsTable extends Migration
             $table->string('specialite');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->unsignedBigInteger('matiere_id');
+            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');;
             $table->timestamps();
         });
     }

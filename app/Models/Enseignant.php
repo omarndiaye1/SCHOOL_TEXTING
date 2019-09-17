@@ -12,6 +12,10 @@ class Enseignant extends Model
     {
         return $this->hasOne(User::class,'id','user_id');
     }
+    public function matieres()
+    {
+        return $this->hasOne(Matiere::class,'id','matiere_id');
+    }
 
 
 }
