@@ -16,7 +16,7 @@ class CreateNoteTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('value');
-            $table->unsignedBigInteger('eleve_id')->unique();
+            $table->unsignedBigInteger('eleve_id');
             $table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
             $table->unsignedBigInteger('evaluation_id');
             $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');

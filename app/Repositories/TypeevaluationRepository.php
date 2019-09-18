@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Typeevaluation;
+use App\Models\Typeevaluarions;
 
 class TypeevaluationRepository extends BaseRepository implements BaseRepositoryInterface
 {
     function __construct(){
 
-		$this->model=new Typeevaluation();
+		$this->model=new Typeevaluarions();
 	}
 }
