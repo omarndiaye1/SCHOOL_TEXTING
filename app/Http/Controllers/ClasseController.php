@@ -53,6 +53,20 @@ class ClasseController  extends BaseControllers
 
         return $data;
     }
+    public function getMatiere($id)
+    {
+
+
+        $data[0] = $this->service->find($id);
+        $data[0]->classe_matiere;
+        foreach($data[0]->classe_matiere as $val){
+            $val->matiere;
+
+        }
+
+
+        return $data;
+    }
 
     /**
      * Show the form for creating a new resource.

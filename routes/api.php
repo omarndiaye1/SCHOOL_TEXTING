@@ -48,6 +48,8 @@ Route::resource('/cour', 'CourController');
 Route::resource('/typeevaluation', 'TypeevaluationController');
 Route::resource('/soumatiere', 'SoumatiereController');
 Route::get('/Classe/getCour/{id}','ClasseController@getCour');
+Route::resource('/classes_matiere', 'Classes_matiereController');
+Route::get('/Classe/getmatiere/{id}','ClasseController@getMatiere');
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');

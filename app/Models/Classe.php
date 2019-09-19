@@ -34,5 +34,9 @@ class Classe extends Model
 
         return $data;
     }
+    public function classe_matiere()
+    {
+        return $this->hasMany('App\Models\Classes_matiere');
+    }
 
 }
