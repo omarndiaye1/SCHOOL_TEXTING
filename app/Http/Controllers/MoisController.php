@@ -13,22 +13,21 @@ use App\Models\Inscription;
 use App\Models\Paiement;
 use App\Models\Role;
 use App\Models\Role_User;
-use App\Models\Paiement_Mois;
-use App\Service\PaiementService;
+use App\Service\MoisService;
 use Illuminate\Support\Str;
 use DB;
 
-class PaiementController  extends BaseControllers
+class MoisController  extends BaseControllers
 {
 
 
     /**
      * Create a new controller instance.
      *
-     * @param  PaiementRepository
+     * @param  MoisRepository
      * @return void
      */
-    public function __construct(PaiementService $service)
+    public function __construct(MoisService $service)
     {
         $this->service = $service;
     }
@@ -41,9 +40,7 @@ class PaiementController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-        foreach($data as &$value){
-          //  $value->mois;
-        }
+       
         return $data;
     }
 
@@ -67,30 +64,7 @@ class PaiementController  extends BaseControllers
     public function store(Request $request)
     {
 
-        //Add Eleve
-        $p= new Paiement();
-        foreach($request->post("mois") as &$value){
-            $p->nombremois = $p->nombremois +1;
-        }
-        $p->montant =  $p->nombremois *500;
-       // $p->nombremois = $request->post("nombremois");
-        $p->eleve_id = $request->post("eleve_id");
-        $p->typepaiement_id = $request->post("typepaiement");
-        $p->aneescholaires_id = $request->post("annee_id");
-        $p->save();
-        foreach($request->post("mois") as &$value){
-            $mois=new Mois();
-            $pm=new Paiement_Mois();
-            $mois=Mois::whereLibelle("$value")->firstOrFail();
-            $pm->mois_id=$mois->id;
-            $pm->paiement_id=$p->id;
-            $pm->save();
-        }
-     
-     //   $mois=Mois::whereLibelle($request->post("mois["))->firstOrFail();
-       // $p->mois_id=$mois->id;
-     
-
+      
        
 
         return response()->json('Added succesfully');
@@ -116,7 +90,7 @@ class PaiementController  extends BaseControllers
     public function show($id)
     {
         //
-     $data= $this->service->find($id);
+        $data= $this->service->find($id);
         return response()->json($data, '200');
     }
 
@@ -180,11 +154,6 @@ class PaiementController  extends BaseControllers
 
     }
     
-    public function paiementByMonths($idEleve) {
-        $qry = 'SELECT   m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id = p.id  AND pm.mois_id = m.id  ' ;
-        //$qry = 'SELECT * FROM eleves e ' ;
-        $data = DB::select($qry);
-        return response()->json($data, '200');
-    }
+
 
 }

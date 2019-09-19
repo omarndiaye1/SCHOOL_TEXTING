@@ -19,10 +19,10 @@ class CreatePaiementsTable extends Migration
             $table->integer('nombremois');
             $table->unsignedBigInteger('typepaiement_id');
             $table->foreign('typepaiement_id')->references('id')->on('typepaiement');
-            $table->unsignedBigInteger('mois_id');
-            $table->foreign('mois_id')->references('id')->on('mois');
             $table->unsignedBigInteger('eleve_id');
             $table->foreign('eleve_id')->references('id')->on('eleves');
+            $table->unsignedBigInteger('aneescholaires_id');
+            $table->foreign('aneescholaires_id')->references('id')->on('aneescholaires');
             $table->timestamps();
         });
     }

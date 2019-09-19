@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
+Route::get('/Paiement/paiementByMonths/{id}','PaiementController@paiementByMonths');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
 Route::resource('/inscription', 'InscriptionController');
 Route::resource('/role', 'RoleController');
@@ -25,6 +26,7 @@ Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
 Route::resource('/Paiement', 'PaiementController');
+Route::resource('/Mois', 'MoisController');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
 Route::resource('/utilisateurs','UserController');
