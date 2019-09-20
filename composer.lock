@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ee6f8fd5c89854859ed15545d8e6207",
+    "content-hash": "1b21c02c07a7739cc3198ea80a42207d",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -370,6 +370,92 @@
                 "trusted proxy"
             ],
             "time": "2019-01-10T14:06:47+00:00"
+        },
+        {
+            "name": "informagenie/orange-sms",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/informagenie/orange-sms.git",
+                "reference": "a7269817793c86b68c45023c6c7767ca2fbfc775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/informagenie/orange-sms/zipball/a7269817793c86b68c45023c6c7767ca2fbfc775",
+                "reference": "a7269817793c86b68c45023c6c7767ca2fbfc775",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "php-curl-class/php-curl-class": "^8.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Informagenie\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Mbungu Ngoma",
+                    "email": "hackmmn@gmail.com"
+                }
+            ],
+            "description": "Unofficial Orange SMS API SDK",
+            "time": "2019-09-05T00:25:25+00:00"
+        },
+        {
+            "name": "ismaeltoe/osms",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ismaeltoe/osms-php.git",
+                "reference": "1d7623be0ca30d204fa841dc55b431e72ff9c59f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ismaeltoe/osms-php/zipball/1d7623be0ca30d204fa841dc55b431e72ff9c59f",
+                "reference": "1d7623be0ca30d204fa841dc55b431e72ff9c59f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Osms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ismael Toé",
+                    "email": "ismael.toe@gmail.com"
+                }
+            ],
+            "description": "PHP library wrapper of the Orange SMS API.",
+            "homepage": "https://github.com/ismaeltoe/osms-php",
+            "keywords": [
+                "api",
+                "client",
+                "curl",
+                "http client",
+                "json",
+                "orange",
+                "php",
+                "requests",
+                "rest",
+                "restful",
+                "sms",
+                "web service"
+            ],
+            "time": "2015-09-21T22:56:19+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1047,6 +1133,73 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "php-curl-class/php-curl-class",
+            "version": "8.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-curl-class/php-curl-class.git",
+                "reference": "a418962c4385aba6b97d2d57d65a0d405b514cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/a418962c4385aba6b97d2d57d65a0d405b514cf7",
+                "reference": "a418962c4385aba6b97d2d57d65a0d405b514cf7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Borboa"
+                }
+            ],
+            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
+            "homepage": "https://github.com/php-curl-class/php-curl-class",
+            "keywords": [
+                "API-Client",
+                "api",
+                "class",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http-client",
+                "http-proxy",
+                "json",
+                "php",
+                "php-curl",
+                "php-curl-library",
+                "proxy",
+                "requests",
+                "restful",
+                "web-scraper",
+                "web-scraping ",
+                "web-service",
+                "xml"
+            ],
+            "time": "2019-08-05T04:18:26+00:00"
         },
         {
             "name": "phpoption/phpoption",

@@ -19,6 +19,6 @@ class Parente extends Model
 
     public function adresses()
     {
-        return $this->hasMany(Adresse::class,'id');
+        return $this->hasMany(Adresse::class,'id', 'user_id');
     }
 }
