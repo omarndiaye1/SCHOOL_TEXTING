@@ -180,6 +180,14 @@ class PaiementController  extends BaseControllers
 
     }
     
+    public function MonthsBypaiement($idEleve) {
+        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id=p.id  AND  m.id not in (pm.mois_id)  ' ;
+       
+        
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
     public function paiementByMonths($idEleve) {
         $qry = 'SELECT   m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id = p.id  AND pm.mois_id = m.id  ' ;
         //$qry = 'SELECT * FROM eleves e ' ;

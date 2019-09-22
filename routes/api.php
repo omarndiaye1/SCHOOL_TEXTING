@@ -19,6 +19,7 @@ Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
 Route::get('/Paiement/paiementByMonths/{id}','PaiementController@paiementByMonths');
+Route::get('/Paiement/MonthsBypaiement/{id}','PaiementController@MonthsBypaiement');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
 Route::resource('/inscription', 'InscriptionController');
 Route::resource('/role', 'RoleController');
