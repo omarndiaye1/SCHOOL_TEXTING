@@ -15,8 +15,8 @@ use App\Models\Role_User;
 use App\Service\EleveService;
 use Illuminate\Support\Str;
 use DB;
-use Informagenie\OrangeSDK;
-use \Osms\Osms;
+
+
 class EleveController  extends BaseControllers
 {
 
@@ -221,45 +221,8 @@ class EleveController  extends BaseControllers
         return response()->json($data, '200');
     }
 
-    public function message($tel,$contenu) {
-        $credentials = [
-            'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
-            'client_secret' => '0cfg1FtD5HAGKkT2'
-        ];
 
-    /*
-       You can use directly authorization header instead of client_id and client_secret
-       $credentials = [
-           'authorization_header' => 'Basic xxx...',
-       ];
-     */
 
-    $sms = new OrangeSDK($credentials);
-    //    $tel = 771440291;
-    //    $contenu =
-    $data = $sms->message($contenu)
-        ->from(221771440291)       // Sender phone's number
-        ->as('Senschool')      // Sender's name (optional)
-        ->to("221".$tel)      // Recipiant phone's number 773022150 778538538
-        ->send();
-        return response()->json($data, '200');
-    }
-
-    // public function message() {
-    //     $config = array(
-    //         'token' => 'TkWXITtj3xW6g9cs2w0eyREHeYkB'
-    //     );
-
-    //     $osms = new Osms($config);
-
-    //     $senderAddress = 'tel:+221771440291';
-    //     $receiverAddress = 'tel:+221771440291';
-    //     $message = 'Hello World!';
-    //     $senderName = 'Optimus Prime';
-
-    //     $osms->sendSMS($senderAddress, $receiverAddress, $message, $senderName);
-    //     return response()->json($osms, '200');
-    // }
 
 
 }

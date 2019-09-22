@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/message/SendAllTeacher', 'MessageController@store2');
 Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
-Route::post('/eleve/message/{tel}/{contenu}','EleveController@message');
 Route::get('/Paiement/paiementByMonths/{id}','PaiementController@paiementByMonths');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
 Route::resource('/inscription', 'InscriptionController');
@@ -53,6 +53,8 @@ Route::resource('/soumatiere', 'SoumatiereController');
 Route::get('/Classe/getCour/{id}','ClasseController@getCour');
 Route::resource('/classes_matiere', 'Classes_matiereController');
 Route::get('/Classe/getmatiere/{id}','ClasseController@getMatiere');
+Route::resource('/message', 'MessageController');
+
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');
