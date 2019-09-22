@@ -40,7 +40,7 @@ class MoisController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-       
+
         return $data;
     }
 
@@ -51,7 +51,7 @@ class MoisController  extends BaseControllers
      */
     function create ()
     {
-        
+
     }
 
 
@@ -64,8 +64,8 @@ class MoisController  extends BaseControllers
     public function store(Request $request)
     {
 
-      
-       
+
+
 
         return response()->json('Added succesfully');
 
@@ -143,7 +143,7 @@ class MoisController  extends BaseControllers
             {
                // $user= request()->user();
                 //$data = $request->all();
-               
+
                 if ($res) {
                     return response()->json($res, '201');
                 }
@@ -153,7 +153,22 @@ class MoisController  extends BaseControllers
             }
 
     }
-    
+
+    public function MoisNotPayYet($ideleve) {
+        $qry = 'SELECT m.libelle
+        FROM mois m,paiement__mois pm,paiements p,eleves e WHERE m.id =pm.mois_id AND p.id = pm.paiement_id
+        AND p.eleve_id = e.id AND m.id not in (SELECT mois_id from paiement__mois)
+        AND p.eleve_id = "'.$ideleve.'" ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function MoisNotPayYet2() {
+        $qry = 'SELECT libelle
+        FROM mois  ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
 
 
 }

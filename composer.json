@@ -10,6 +10,8 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "informagenie/orange-sms": "^1.2",
+        "ismaeltoe/osms": "^2.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0"
     },
