@@ -7,6 +7,8 @@ use App\Models\Message;
 use App\Models\Historique_profs;
 use App\Models\Enseignant;
 use App\Models\User;
+use App\Models\Historique_parents;
+use App\Models\Parente;
 use App\Service\MessageService;
 use Informagenie\OrangeSDK;
 use \Osms\Osms;
@@ -96,6 +98,8 @@ class MessageController  extends BaseControllers
             return response()->json($data, '200');
 
       //return response()->json('Message send succesfully');
+
+
     }
 
 
@@ -149,6 +153,52 @@ class MessageController  extends BaseControllers
 
         }
         return response()->json('Message send succesfully');
+    }
+
+    public function smsParent(Request $request)
+    {
+    //   $data = $request->all();
+    //   $this->service->create($data);
+        //Add Message
+         $msg = new Message();
+         $msg->titre = $request->post("titre");
+         $msg->contenu = $request->post("contenu");
+         $msg->save();
+
+         //Add Historique Parent
+         $hparent = new Historique_parents();
+         $hparent->message_id = $msg->id;
+         $hparent->parent_id = $request->post("parent_id");
+         $hparent->save();
+
+
+         //Send SMS
+        /*$credentials = [
+            'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
+            'client_secret' => '0cfg1FtD5HAGKkT2'
+        ];*/
+
+        /*
+        You can use directly authorization header instead of client_id and client_secret
+        $credentials = [
+            'authorization_header' => 'Basic xxx...',
+        ];
+        */
+
+        /*$sms = new OrangeSDK($credentials);
+        $numero = $request->post("tel");
+        $val = 221;
+        $tel =  $val.$numero;
+        $data = $sms->message($msg->contenu)
+            ->from(221771440291)       // Sender phone's number
+            ->as('Senschool')      // Sender's name (optional)
+            ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
+            ->send();
+            return response()->json($data, '200');*/
+
+      //return response()->json('Message send succesfully');
+
+
     }
 
     /**
