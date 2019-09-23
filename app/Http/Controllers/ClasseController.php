@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Classe;
 use App\Models\Departement;
 use App\Models\Niveau;
+use App\Models\Classes_matiere;
 use App\Service\ClasseService;
 use App\Models\Cour;
+use App\Models\Evaluation;
 use DB;
 
 class ClasseController  extends BaseControllers
@@ -65,6 +67,29 @@ class ClasseController  extends BaseControllers
         }
 
 
+        return $data;
+    }
+    public function forBultin($id,$id2)
+    {
+        $data[0] = $this->service->find($id);
+        $evaluation = new Evaluation();
+        $data[0]['evaluation'] = $evaluation->where('semestre_id','=',$id2)
+                                             ->where('classe_id','=',$id)->get();
+
+        foreach($data[0]['evaluation'] as $val){
+            $val->matiere;
+            $idm = $val->matiere->id;
+            $val->matiere['classes_matieres'] = $val->matiere
+                ->from('classes_matieres')
+                ->whereRaw('classes_matieres.matiere_id ='.$idm)
+                ->whereRaw('classes_matieres.classe_id ='.$id)
+                ->get();
+            //$val->matiere->classe_matiere;
+            $val->note;
+            foreach($val->note as $val1){
+                $val1->eleve;
+            }
+        }
         return $data;
     }
 
