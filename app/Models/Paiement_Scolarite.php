@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Paiement extends Model
+class Paiement_Scolarite extends Model
 {
     //
     protected $guarded=[];
@@ -19,6 +19,6 @@ class Paiement extends Model
     }
     public function mois()
     {
-        return $this->belongsToMany(Mois::class, 'paiement_mois');
+        return $this->belongsToMany(Mois::class, 'paiement_scolarite_mois');
     }
 }

@@ -16,6 +16,7 @@ use App\Service\EleveService;
 use Illuminate\Support\Str;
 use DB;
 
+
 class EleveController  extends BaseControllers
 {
 
@@ -219,6 +220,9 @@ class EleveController  extends BaseControllers
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
+
+
+
 
 
 }
