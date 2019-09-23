@@ -27,9 +27,9 @@ class CreateEleveTable extends Migration
             $table->string('pays')->nullable();
             $table->longText('photo')->nullable();
             $table->unsignedBigInteger('parente_id');
-            $table->foreign('parente_id')->references('id')->on('parentes');
+            $table->foreign('parente_id')->references('id')->on('parentes')->onDelete('cascade');
             $table->unsignedBigInteger('classe_id');
-            $table->foreign('classe_id')->references('id')->on('classes');
+            $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
             $table->timestamps();
         });
     }

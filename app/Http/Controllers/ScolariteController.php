@@ -10,25 +10,25 @@ use App\Models\Adresse;
 use App\Models\Mois;
 use App\Models\Eleve;
 use App\Models\Inscription;
-use App\Models\Paiement;
+use App\Models\Paiement_Scolarite;
 use App\Models\Role;
 use App\Models\Role_User;
-use App\Models\Paiement_Mois;
-use App\Service\PaiementService;
+use App\Models\Paiement_Scolarite_Mois;
+use App\Service\ScolariteService;
 use Illuminate\Support\Str;
 use DB;
 
-class PaiementController  extends BaseControllers
+class ScolariteController  extends BaseControllers
 {
 
 
     /**
      * Create a new controller instance.
      *
-     * @param  PaiementRepository
+     * @param  ScolariteRepository
      * @return void
      */
-    public function __construct(PaiementService $service)
+    public function __construct(ScolariteService $service)
     {
         $this->service = $service;
     }
@@ -41,9 +41,7 @@ class PaiementController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-        foreach($data as &$value){
-          //  $value->mois;
-        }
+       
         return $data;
     }
 
@@ -68,30 +66,25 @@ class PaiementController  extends BaseControllers
     {
 
         //Add Eleve
-        $p= new Paiement();
+        $p= new Paiement_Scolarite();
         foreach($request->post("mois") as &$value){
             $p->nombremois = $p->nombremois +1;
         }
-        $p->montant =  $p->nombremois *500;
-       // $p->nombremois = $request->post("nombremois");
+        $p->montant = $request->post("montant") ;
         $p->eleve_id = $request->post("eleve_id");
         $p->typepaiement_id = $request->post("typepaiement");
         $p->aneescholaires_id = $request->post("annee_id");
         $p->save();
         foreach($request->post("mois") as &$value){
             $mois=new Mois();
-            $pm=new Paiement_Mois();
+            $pm=new Paiement_Scolarite_Mois();
             $mois=Mois::whereLibelle("$value")->firstOrFail();
             $pm->mois_id=$mois->id;
-            $pm->paiement_id=$p->id;
+            $pm->paiementscolarite_id=$p->id;
             $pm->save();
         }
      
-     //   $mois=Mois::whereLibelle($request->post("mois["))->firstOrFail();
-       // $p->mois_id=$mois->id;
-     
-
-       
+    
 
         return response()->json('Added succesfully');
 
@@ -181,15 +174,15 @@ class PaiementController  extends BaseControllers
     }
     
     public function MonthsBypaiement($idEleve) {
-        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id=p.id  AND  m.id not in (select mois_id from paiement__mois)  ' ;
+        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiement_scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id=p.id  AND  m.id not in (select mois_id from paiement__mois)  ' ;
        
         
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
 
-    public function paiementByMonths($idEleve) {
-        $qry = 'SELECT   m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id = p.id  AND pm.mois_id = m.id  ' ;
+    public function paiementScolariteByMonths($idEleve) {
+        $qry = 'SELECT   m.libelle FROM mois m,paiement_scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id = p.id  AND pm.mois_id = m.id  ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
         $data = DB::select($qry);
         return response()->json($data, '200');

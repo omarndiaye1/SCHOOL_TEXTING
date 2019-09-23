@@ -21,6 +21,7 @@ Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
 Route::get('/Paiement/paiementByMonths/{id}','PaiementController@paiementByMonths');
+Route::get('/Paiement/MonthsBypaiement/{id}','PaiementController@MonthsBypaiement');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
 Route::resource('/inscription', 'InscriptionController');
 Route::resource('/role', 'RoleController');
@@ -28,6 +29,7 @@ Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
 Route::resource('/Paiement', 'PaiementController');
+Route::resource('/Scolarite', 'ScolariteController');
 Route::resource('/Mois', 'MoisController');
 Route::get('/Mois/moisnotpay/{ideleve}', 'MoisController@MoisNotPayYet');
 Route::get('/Mois/moisnotpay2', 'MoisController@MoisNotPayYet2');
@@ -54,8 +56,13 @@ Route::resource('/soumatiere', 'SoumatiereController');
 Route::get('/Classe/getCour/{id}','ClasseController@getCour');
 Route::resource('/classes_matiere', 'Classes_matiereController');
 Route::get('/Classe/getmatiere/{id}','ClasseController@getMatiere');
+<<<<<<< HEAD
+Route::get('/Classe/forBultin/{id}&{id2}','ClasseController@forBultin');
+Route::resource('/Bultin', 'BultinController');
+=======
 Route::resource('/message', 'MessageController');
 
+>>>>>>> 1937cec3badbec4f952ac6e519bc03b2bb7c32a6
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Aneescholaire;
-use App\Models\Semestre;
-use App\Service\AneescholaireService;
+use App\Models\Departement;
+use App\Service\BultinService;
 
-class AneesholaireController  extends BaseControllers
+class BultinController  extends BaseControllers
 {
     	/**
      * Create a new controller instance.
@@ -15,7 +14,7 @@ class AneesholaireController  extends BaseControllers
      * @param  DepartementRepository
      * @return void
      */
-    public function __construct(AneescholaireService $service)
+    public function __construct(BultinService $service)
     {
         $this->service = $service;
     }
@@ -27,12 +26,8 @@ class AneesholaireController  extends BaseControllers
 
     public function index()
     {
-        //
         $data = $this->service->all();
-        foreach($data as $val){
-            $val->semestre;
-            $val->classes;
-        }
+       /// $data[0]->matiere;
         return $data;
     }
 
@@ -55,36 +50,13 @@ class AneesholaireController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      //$data = $request->all();
-      $an = new Aneescholaire();
-      $an->libelle =$request->post("libelle");
-      $an->datedep =$request->post("datedep");
-      $an->datefin =$request->post("datefin");
-      $an->etat =$request->post("etat");
-      $an->save();
-    //   $data['libelle']=$request->post("libelle");
-    //   $data['datedep']=$request->post("datedep");
-    //   $data['datefin']=$request->post("datefin");
-    //   $data['etat']=$request->post("etat");
-    //   $tuchi = $this->service->create($data);
-
-      $semenstre1 = new Semestre();
-      $semenstre1->libelle = 'Premier';
-      $semenstre1->etat = true;
-      $semenstre1->aneescholaire_id = $an->id;
-      $semenstre1->save();
-
-      $semenstre2 = new Semestre();
-      $semenstre2->libelle = 'Second';
-      $semenstre2->etat = false;
-      $semenstre2->aneescholaire_id = $an->id;
-      $semenstre2->save();
-
-      return response()->json($an, '201');
+      $data = $request->all();
+      $data = $this->service->create($data);
+      return response()->json($data);
     }
 
     /**
-     * Display the specified aresource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -93,9 +65,6 @@ class AneesholaireController  extends BaseControllers
     {
         //
      $data=  $this->service->find($id);
-
-        $data->semestre;
-
         return response()->json($data, '200');
     }
 
@@ -119,8 +88,6 @@ class AneesholaireController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Role::destroy($id);
-        return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
             $res = $this->service->delete($id);
