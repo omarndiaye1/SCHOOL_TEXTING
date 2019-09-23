@@ -28,6 +28,7 @@ Route::resource('/salle', 'SalleController');
 Route::resource('/matiere', 'MatiereController');
 Route::resource('/Departement', 'DepartementController');
 Route::resource('/Paiement', 'PaiementController');
+Route::resource('/Scolarite', 'ScolariteController');
 Route::resource('/Mois', 'MoisController');
 Route::get('/Mois/moisnotpay/{ideleve}', 'MoisController@MoisNotPayYet');
 Route::get('/Mois/moisnotpay2', 'MoisController@MoisNotPayYet2');
