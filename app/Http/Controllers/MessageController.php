@@ -9,6 +9,14 @@ use App\Models\Enseignant;
 use App\Models\User;
 use App\Models\Historique_parents;
 use App\Models\Parente;
+use App\Models\Eleve;
+use App\Models\Evaluation;
+use App\Models\Note;
+use App\Models\Typeevaluarions;
+use App\Models\Matiere;
+use App\Models\Classe;
+use App\Models\Semestre;
+use App\Models\Etablissement;
 use App\Service\MessageService;
 use Informagenie\OrangeSDK;
 use \Osms\Osms;
@@ -199,6 +207,127 @@ class MessageController  extends BaseControllers
       //return response()->json('Message send succesfully');
 
 
+    }
+
+    public function SendAllParentByClass(Request $request)
+    {
+    //   $data = $request->all();
+    //   $this->service->create($data);
+        //Add Message
+         $msg = new Message();
+         $msg->titre = $request->post("titre");
+         $msg->contenu = $request->post("contenu");
+         $msg->save();
+
+         //Add Historique Parent
+         foreach($request->post("parent_idtab") as &$value){
+         $hparent = new Historique_parents();
+         $hparent->message_id = $msg->id;
+         $parent = new Parente();
+         $parent = Parente::where('id', $value)->firstOrFail();
+         $hparent->parent_id =  $parent->id;
+         $hparent->save();
+
+                $user = new User();
+                $user = User::where('id', $parent->user_id)->firstOrFail();
+            //Send SMS
+            /*$credentials = [
+                'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
+                'client_secret' => '0cfg1FtD5HAGKkT2'
+            ];*/
+
+            /*
+            You can use directly authorization header instead of client_id and client_secret
+            $credentials = [
+                'authorization_header' => 'Basic xxx...',
+            ];
+            */
+
+            /*$sms = new OrangeSDK($credentials);
+            $numero = $user->tel;
+            $val = 221;
+            $tel =  $val.$numero;
+            //    $contenu =
+            $data = $sms->message($msg->contenu)
+                ->from(221771440291)       // Sender phone's number
+                ->as('Senschool')      // Sender's name (optional)
+                ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
+                ->send();*/
+                //return response()->json($data, '200');
+            //}
+
+        }
+        return response()->json('Message send succesfully');
+    }
+
+    public function SendNoteParentByClass(Request $request)
+    {
+        $etabl = new Etablissement();
+        $etabl = Etablissement::where('id', 1)->firstOrFail();
+         //Get Note Eleve
+         foreach($request->post("Eleve_idtab") as &$value){
+         $el = new Eleve();
+         $el = Eleve::where('id', $value)->firstOrFail();
+         $parent = new Parente();
+         $parent = Parente::where('id', $el->parente_id)->firstOrFail();
+         $user = new User();
+         $user = User::where('id', $parent->user_id)->firstOrFail();
+         $note = new Note();
+         $note = Note::where('eleve_id', $el->id)->firstOrFail();
+         $eval = new Evaluation();
+         $eval = Evaluation::where('id', $note->evaluation_id)->firstOrFail();
+         $sem = new Semestre();
+         $sem = Semestre::where('id', $eval->semestre_id)->firstOrFail();
+         $typeeval = new Typeevaluarions();
+         $typeeval = Typeevaluarions::where('id', $eval->typeevaluarions_id)->firstOrFail();
+         $mat = new Matiere();
+         $mat = Matiere::where('id', $eval->matiere_id)->firstOrFail();
+         $cl = new Classe();
+         $cl = Classe::where('id', $eval->classe_id)->firstOrFail();
+
+
+         //Add Message
+         $msg = new Message();
+         $msg->titre = ('Note '.$typeeval->libelle.' '.$el->id.$el->nom);
+         $msg->contenu = ('Bonjour '.$user->civilite.' '.$user->nom.
+                                        ' la note de '.$typeeval->libelle.' de '.$mat->libelle.' du '.$sem->libelle.' Semestre de votre enfant '.$el->nom
+                                        .' '.$el->prenom.' en classe de '.$cl->libelleClasse.' est de '.$note->value.'/20 '."\r\n\n"
+                                         .' Cordialement '.$etabl->nom.'.');
+         $msg->save();
+
+         //Add Historique Parent
+         $hparent = new Historique_parents();
+         $hparent->message_id = $msg->id;
+         $hparent->parent_id = $parent->id;
+         $hparent->save();
+            //Send SMS
+            $credentials = [
+                'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
+                'client_secret' => '0cfg1FtD5HAGKkT2'
+            ];
+
+            /*
+            You can use directly authorization header instead of client_id and client_secret
+            $credentials = [
+                'authorization_header' => 'Basic xxx...',
+            ];
+            */
+
+            $sms = new OrangeSDK($credentials);
+            $numero = $user->tel;
+            $val = 221;
+            $tel =  $val.$numero;
+            //    $contenu =
+            $data = $sms->message($msg->contenu)
+                ->from(221771440291)       // Sender phone's number
+                ->as('Senschool')      // Sender's name (optional)
+                ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
+                ->send();
+                //return response()->json($data, '200');
+           // }
+
+        }
+        return response()->json('Message send succesfully');
     }
 
     /**

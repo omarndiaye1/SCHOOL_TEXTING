@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
 use App\Models\Etablissement;
 use App\Service\EtablissementService;
+use DB;
 class EtablissementController extends Controller
 {
      /**
@@ -122,5 +122,47 @@ class EtablissementController extends Controller
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
+    }
+
+    public function NbreEleve() {
+        $qry = 'SELECT COUNT(DISTINCT e.id) AS nbreEleve
+        FROM eleves e,inscriptions i,aneescholaires an
+        WHERE e.id = i.eleve_id AND an.id = i.anneescolaire_id AND an.etat = 1 ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function NbreGarcon() {
+        $qry = 'SELECT COUNT(DISTINCT e.id) AS NbreGarcon
+        FROM eleves e,inscriptions i,aneescholaires an
+        WHERE e.id = i.eleve_id AND an.id = i.anneescolaire_id AND an.etat = 1 AND e.sexe = "Masculin" ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function NbreFille() {
+        $qry = 'SELECT COUNT(DISTINCT e.id) AS NbreFille
+        FROM eleves e,inscriptions i,aneescholaires an
+        WHERE e.id = i.eleve_id AND an.id = i.anneescolaire_id AND an.etat = 1 AND e.sexe = "Feminin" ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function NbreClasse() {
+        $qry = 'SELECT COUNT(DISTINCT cl.id) AS NbreClasse
+        FROM classes cl,aneescholaires an
+        WHERE an.id = cl.aneescholaire_id AND an.etat = 1' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function NbreProf() {
+        $qry = 'SELECT COUNT(*) AS NbreProf
+        FROM enseignants';
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function NbreMessageSend() {
+        $qry = 'SELECT COUNT(*) AS NbreMessageSend
+        FROM messages';
+        $data = DB::select($qry);
+        return response()->json($data, '200');
     }
 }

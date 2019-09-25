@@ -15,8 +15,17 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/etablissement/nbrEleve', 'EtablissementController@NbreEleve');
+Route::get('/etablissement/nbrEleveGarcon', 'EtablissementController@NbreGarcon');
+Route::get('/etablissement/nbrEleveFille', 'EtablissementController@NbreFille');
+Route::get('/etablissement/nbrClasse', 'EtablissementController@NbreClasse');
+Route::get('/etablissement/nbrProf', 'EtablissementController@NbreProf');
+Route::get('/etablissement/nbrSms', 'EtablissementController@NbreMessageSend');
 Route::post('/message/SendAllTeacher', 'MessageController@store2');
 Route::post('/message/SendParent', 'MessageController@smsParent');
+Route::post('/message/SendParentByClass', 'MessageController@SendAllParentByClass');
+Route::post('/message/SendNoteByClass', 'MessageController@SendNoteParentByClass');
 Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
@@ -31,8 +40,6 @@ Route::resource('/Departement', 'DepartementController');
 Route::resource('/Paiement', 'PaiementController');
 Route::resource('/Scolarite', 'ScolariteController');
 Route::resource('/Mois', 'MoisController');
-Route::get('/Mois/moisnotpay/{ideleve}', 'MoisController@MoisNotPayYet');
-Route::get('/Mois/moisnotpay2', 'MoisController@MoisNotPayYet2');
 Route::resource('/Classe', 'ClasseController');
 Route::resource('/Niveau', 'NiveauController');
 Route::resource('/utilisateurs','UserController');
@@ -56,13 +63,10 @@ Route::resource('/soumatiere', 'SoumatiereController');
 Route::get('/Classe/getCour/{id}','ClasseController@getCour');
 Route::resource('/classes_matiere', 'Classes_matiereController');
 Route::get('/Classe/getmatiere/{id}','ClasseController@getMatiere');
-<<<<<<< HEAD
 Route::get('/Classe/forBultin/{id}&{id2}','ClasseController@forBultin');
 Route::resource('/Bultin', 'BultinController');
-=======
 Route::resource('/message', 'MessageController');
 
->>>>>>> 1937cec3badbec4f952ac6e519bc03b2bb7c32a6
 /* Route::get('/roles/create','RoleController@create');
 Route::post('/roles/store','RoleController@store');
 Route::get('/roles/show/{id}','RoleController@show');

@@ -154,21 +154,6 @@ class MoisController  extends BaseControllers
 
     }
 
-    public function MoisNotPayYet($ideleve) {
-        $qry = 'SELECT m.libelle
-        FROM mois m,paiement__mois pm,paiements p,eleves e WHERE m.id =pm.mois_id AND p.id = pm.paiement_id
-        AND p.eleve_id = e.id AND m.id not in (SELECT mois_id from paiement__mois)
-        AND p.eleve_id = "'.$ideleve.'" ' ;
-        $data = DB::select($qry);
-        return response()->json($data, '200');
-    }
-    public function MoisNotPayYet2() {
-        $qry = 'SELECT libelle
-        FROM mois  ' ;
-        $data = DB::select($qry);
-        return response()->json($data, '200');
-    }
-
 
 
 }
