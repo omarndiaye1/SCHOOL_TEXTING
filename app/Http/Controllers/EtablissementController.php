@@ -165,4 +165,24 @@ class EtablissementController extends Controller
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
+
+    public function NbreEleveScientifique() {
+        $qry = 'SELECT COUNT(DISTINCT e.id) AS nbreEleveScientifique
+        FROM eleves e,inscriptions i,classes cl,aneescholaires an,niveaux n
+        WHERE e.id = i.eleve_id AND an.id = i.anneescolaire_id
+        AND cl.id = i.classe_id AND n.id = cl.niveau_id
+        AND an.etat = 1 AND n.libelleNiveau IN ("S","S1","S2","S3","S4") ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function NbreEleveLitteraire() {
+        $qry = "SELECT COUNT(DISTINCT e.id) AS nbreEleveLitteraire
+        FROM eleves e,inscriptions i,classes cl,aneescholaires an,niveaux n
+        WHERE e.id = i.eleve_id AND an.id = i.anneescolaire_id
+        AND cl.id = i.classe_id AND n.id = cl.niveau_id
+        AND an.etat = 1 AND n.id IN (4,5,6,7) " ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
 }

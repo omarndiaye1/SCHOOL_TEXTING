@@ -15,7 +15,7 @@ class CreateHistoriqueParentsTable extends Migration
     {
         Schema::create('historique_parents', function (Blueprint $table) {
             $table->unsignedBigInteger('message_id');
-            $table->foreign('message_id')->references('id')->on('messages');
+            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
             $table->unsignedBigInteger('parent_id');
             $table->foreign('parent_id')->references('id')->on('parentes');
             $table->timestamps();

@@ -22,6 +22,8 @@ Route::get('/etablissement/nbrEleveFille', 'EtablissementController@NbreFille');
 Route::get('/etablissement/nbrClasse', 'EtablissementController@NbreClasse');
 Route::get('/etablissement/nbrProf', 'EtablissementController@NbreProf');
 Route::get('/etablissement/nbrSms', 'EtablissementController@NbreMessageSend');
+Route::get('/etablissement/nbrScientifique', 'EtablissementController@NbreEleveScientifique');
+Route::get('/etablissement/nbrLitteraire', 'EtablissementController@NbreEleveLitteraire');
 Route::post('/message/SendAllTeacher', 'MessageController@store2');
 Route::post('/message/SendParent', 'MessageController@smsParent');
 Route::post('/message/SendParentByClass', 'MessageController@SendAllParentByClass');

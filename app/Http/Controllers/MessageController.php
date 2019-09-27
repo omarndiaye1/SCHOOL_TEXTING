@@ -264,6 +264,9 @@ class MessageController  extends BaseControllers
     {
         $etabl = new Etablissement();
         $etabl = Etablissement::where('id', 1)->firstOrFail();
+
+        $eval = new Evaluation();
+        $eval = Evaluation::where('id', $request->post("evaluation_id"))->firstOrFail();
          //Get Note Eleve
          foreach($request->post("Eleve_idtab") as &$value){
          $el = new Eleve();
@@ -273,9 +276,7 @@ class MessageController  extends BaseControllers
          $user = new User();
          $user = User::where('id', $parent->user_id)->firstOrFail();
          $note = new Note();
-         $note = Note::where('eleve_id', $el->id)->firstOrFail();
-         $eval = new Evaluation();
-         $eval = Evaluation::where('id', $note->evaluation_id)->firstOrFail();
+         $note = Note::where('evaluation_id', $eval->id)->where('eleve_id', $value)->firstOrFail();
          $sem = new Semestre();
          $sem = Semestre::where('id', $eval->semestre_id)->firstOrFail();
          $typeeval = new Typeevaluarions();
@@ -301,10 +302,10 @@ class MessageController  extends BaseControllers
          $hparent->parent_id = $parent->id;
          $hparent->save();
             //Send SMS
-            $credentials = [
+            /*$credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];
+            ];*/
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -313,7 +314,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            $sms = new OrangeSDK($credentials);
+            /*$sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -322,7 +323,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();
+                ->send();*/
                 //return response()->json($data, '200');
            // }
 
