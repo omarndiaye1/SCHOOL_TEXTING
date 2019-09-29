@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Matiere;
-use App\Service\MatiereService;
+use App\Models\Message_predefinis;
+use App\Service\Message_predefinisService;
+use DB;
 
-class MatiereController  extends BaseControllers
+class Message_predefinisController  extends BaseControllers
 {
    /**
      * Create a new controller instance.
@@ -13,7 +14,7 @@ class MatiereController  extends BaseControllers
      * @param  MatiereRepository
      * @return void
      */
-    public function __construct(MatiereService $service)
+    public function __construct(Message_predefinisService $service)
     {
         $this->service = $service;
     }
@@ -51,9 +52,11 @@ class MatiereController  extends BaseControllers
      */
     public function store(Request $request)
     {
-      $data = $request->all();
-      $this->service->create($data);
-      return response()->json($data, '201');
+        $msgPredef = new Message_predefinis();
+        $msgPredef->titre = $request->post("titre");
+        $msgPredef->contenu = $request->post("contenu");
+        $msgPredef->save();
+      return response()->json($msgPredef, '201');
     }
 
     /**
@@ -89,7 +92,7 @@ class MatiereController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Matiere::destroy($id);
+        Message_predefinis::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -107,9 +110,11 @@ class MatiereController  extends BaseControllers
 
         try
             {
-               // $user= request()->user();
-                //$data = $request->all();
-                $data['libelle']=$request->post("libelle");
+                // $msgPredef = new Message_predefinis();
+                // $msgPredef->titre = $request->post("titre");
+                // $msgPredef->contenu = $request->post("contenu");
+                $data['titre']=$request->post("titre");
+                $data['contenu']=$request->post("contenu");
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
@@ -120,4 +125,13 @@ class MatiereController  extends BaseControllers
             }
 
     }
+    public function GetMessagePredefini($id) {
+        $qry = "SELECT *
+        FROM message_predefinis
+        WHERE id = '".$id."' " ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+
 }

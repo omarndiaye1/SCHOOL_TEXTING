@@ -185,4 +185,28 @@ class EtablissementController extends Controller
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
+
+    public function HistoriqueMessageParents() {
+        $qry = 'SELECT hp.id,hp.created_at,u.nom,u.prenom,m.contenu
+        FROM parentes p,historique_parents hp,messages m,users u
+        WHERE hp.parent_id = p.id AND hp.message_id = m.id AND p.user_id = u.id ORDER BY hp.id DESC' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function HistoriqueMessageProf() {
+        $qry = 'SELECT hp.id,hp.created_at,u.nom,u.prenom,m.contenu
+        FROM enseignants e,historique_profs hp,messages m,users u
+        WHERE hp.prof_id = e.id AND hp.message_id = m.id AND e.user_id = u.id ORDER BY hp.id DESC' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function SMSGENERAL() {
+        $qry = 'SELECT DISTINCT u.id
+        FROM eleves e,inscriptions i,aneescholaires an,users u,parentes p
+        WHERE e.parente_id = p.id AND e.id = i.eleve_id AND an.id = i.anneescolaire_id AND p.user_id = u.id  AND an.etat = 1 ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
 }

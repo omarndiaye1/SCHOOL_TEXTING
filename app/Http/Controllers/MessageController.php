@@ -20,7 +20,7 @@ use App\Models\Etablissement;
 use App\Service\MessageService;
 use Informagenie\OrangeSDK;
 use \Osms\Osms;
-
+use DB;
 class MessageController  extends BaseControllers
 {
     	/**
@@ -46,6 +46,7 @@ class MessageController  extends BaseControllers
         $data = $this->service->all();
         return $data;
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -77,15 +78,19 @@ class MessageController  extends BaseControllers
          //Add Historique Prof
          $hprof = new Historique_profs();
          $hprof->message_id = $msg->id;
-         $hprof->prof_id = $request->post("prof_id");
+         $prof = new Enseignant();
+         $prof = Enseignant::where('id', $request->post("prof_id"))->firstOrFail();
+         $hprof->prof_id = $prof->id;
+         $user = new User();
+         $user = User::where('id', $prof->user_id)->firstOrFail();
          $hprof->save();
 
 
          //Send SMS
-        $credentials = [
+        /*$credentials = [
             'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
             'client_secret' => '0cfg1FtD5HAGKkT2'
-        ];
+        ];*/
 
         /*
         You can use directly authorization header instead of client_id and client_secret
@@ -94,8 +99,8 @@ class MessageController  extends BaseControllers
         ];
         */
 
-        $sms = new OrangeSDK($credentials);
-        $numero = $request->post("tel");
+        /*$sms = new OrangeSDK($credentials);
+        $numero = $user->tel;
         $val = 221;
         $tel =  $val.$numero;
         $data = $sms->message($msg->contenu)
@@ -103,7 +108,7 @@ class MessageController  extends BaseControllers
             ->as('Senschool')      // Sender's name (optional)
             ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
             ->send();
-            return response()->json($data, '200');
+            return response()->json($data, '200');*/
 
       //return response()->json('Message send succesfully');
 
@@ -134,10 +139,10 @@ class MessageController  extends BaseControllers
                 $user = new User();
                 $user = User::where('id', $prof->user_id)->firstOrFail();
             //Send SMS
-            $credentials = [
+            /*$credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];
+            ];*/
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -146,7 +151,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            $sms = new OrangeSDK($credentials);
+            /*$sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -155,7 +160,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();
+                ->send();*/
                 //return response()->json($data, '200');
             //}
 
@@ -176,8 +181,12 @@ class MessageController  extends BaseControllers
          //Add Historique Parent
          $hparent = new Historique_parents();
          $hparent->message_id = $msg->id;
-         $hparent->parent_id = $request->post("parent_id");
+         $parent = new Parente();
+         $parent = Parente::where('id', $request->post("parent_id"))->firstOrFail();
+         $hparent->parent_id =  $parent->id;
          $hparent->save();
+         $user = new User();
+         $user = User::where('id', $parent->user_id)->firstOrFail();
 
 
          //Send SMS
@@ -194,7 +203,7 @@ class MessageController  extends BaseControllers
         */
 
         /*$sms = new OrangeSDK($credentials);
-        $numero = $request->post("tel");
+        $numero = $user->tel;
         $val = 221;
         $tel =  $val.$numero;
         $data = $sms->message($msg->contenu)
@@ -331,6 +340,55 @@ class MessageController  extends BaseControllers
         return response()->json('Message send succesfully');
     }
 
+    public function SendAllParents(Request $request)
+    {
+        //Add Message
+        $msg = new Message();
+        $msg->titre = $request->post("titre");
+        $msg->contenu = $request->post("contenu");
+        $msg->save();
+
+
+         foreach($request->post("Teltab") as &$value){
+         $user = new User();
+         $user = User::where('id', $value)->firstOrFail();
+
+         //Add Historique Parent
+         $hparent = new Historique_parents();
+         $hparent->message_id = $msg->id;
+         $parent = new Parente();
+         $parent = Parente::where('user_id', $user->id)->firstOrFail();
+         $hparent->parent_id = $parent->id;
+         $hparent->save();
+            //Send SMS
+            /*$credentials = [
+                'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
+                'client_secret' => '0cfg1FtD5HAGKkT2'
+            ];*/
+
+            /*
+            You can use directly authorization header instead of client_id and client_secret
+            $credentials = [
+                'authorization_header' => 'Basic xxx...',
+            ];
+            */
+
+            /*$sms = new OrangeSDK($credentials);
+            $numero = $user->tel;
+            $val = 221;
+            $tel =  $val.$numero;
+            //    $contenu =
+            $data = $sms->message($msg->contenu)
+                ->from(221771440291)       // Sender phone's number
+                ->as('Senschool')      // Sender's name (optional)
+                ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
+                ->send();*/
+                //return response()->json($data, '200');
+           // }
+
+        }
+        return response()->json('Message send succesfully');
+    }
     /**
      * Display the specified resource.
      *
@@ -434,4 +492,6 @@ class MessageController  extends BaseControllers
     //     $osms->sendSMS($senderAddress, $receiverAddress, $message, $senderName);
     //     return response()->json($osms, '200');
     // }
+
+
 }

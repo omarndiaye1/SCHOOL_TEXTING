@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Matiere;
-use App\Service\MatiereService;
-
-class MatiereController  extends BaseControllers
+use App\Models\Historique_parents;
+use App\Service\Historique_parentsService;
+use DB;
+class Historique_parentsController extends Controller
 {
-   /**
+     /**
      * Create a new controller instance.
      *
-     * @param  MatiereRepository
+     * @param  EtablissementRepository
      * @return void
      */
-    public function __construct(MatiereService $service)
+    public function __construct(Historique_parentsService $service)
     {
         $this->service = $service;
     }
@@ -25,10 +25,9 @@ class MatiereController  extends BaseControllers
 
     public function index()
     {
-
         //
 
-        $data = $this->service->all();
+         $data = $this->service->all();
         return $data;
     }
 
@@ -51,7 +50,9 @@ class MatiereController  extends BaseControllers
      */
     public function store(Request $request)
     {
+
       $data = $request->all();
+
       $this->service->create($data);
       return response()->json($data, '201');
     }
@@ -89,7 +90,7 @@ class MatiereController  extends BaseControllers
      */
     function destroy ($id)
     {
-        Matiere::destroy($id);
+        Historique_parents::destroy($id);
         return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
@@ -108,8 +109,7 @@ class MatiereController  extends BaseControllers
         try
             {
                // $user= request()->user();
-                //$data = $request->all();
-                $data['libelle']=$request->post("libelle");
+                $data = $request->all();
                 $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
@@ -120,4 +120,5 @@ class MatiereController  extends BaseControllers
             }
 
     }
+
 }
