@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Aneescholaire;
 use App\Service\SemestreService;
-
+use DB;
 class SemestreController  extends BaseControllers
 {
     	/**
@@ -118,5 +118,14 @@ class SemestreController  extends BaseControllers
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
+    }
+
+    public function GetSemestreByAnneeScolaire($idanne) {
+        $qry = 'SELECT *
+        FROM semestres
+        WHERE aneescholaire_id =  "'.$idanne.'" ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
     }
 }

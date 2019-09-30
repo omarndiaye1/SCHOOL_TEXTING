@@ -87,10 +87,10 @@ class MessageController  extends BaseControllers
 
 
          //Send SMS
-        /*$credentials = [
+        $credentials = [
             'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
             'client_secret' => '0cfg1FtD5HAGKkT2'
-        ];*/
+        ];
 
         /*
         You can use directly authorization header instead of client_id and client_secret
@@ -99,7 +99,7 @@ class MessageController  extends BaseControllers
         ];
         */
 
-        /*$sms = new OrangeSDK($credentials);
+        $sms = new OrangeSDK($credentials);
         $numero = $user->tel;
         $val = 221;
         $tel =  $val.$numero;
@@ -108,7 +108,7 @@ class MessageController  extends BaseControllers
             ->as('Senschool')      // Sender's name (optional)
             ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
             ->send();
-            return response()->json($data, '200');*/
+            return response()->json($data, '200');
 
       //return response()->json('Message send succesfully');
 
@@ -139,10 +139,10 @@ class MessageController  extends BaseControllers
                 $user = new User();
                 $user = User::where('id', $prof->user_id)->firstOrFail();
             //Send SMS
-            /*$credentials = [
+            $credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];*/
+            ];
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -151,7 +151,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            /*$sms = new OrangeSDK($credentials);
+            $sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -160,7 +160,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();*/
+                ->send();
                 //return response()->json($data, '200');
             //}
 
@@ -190,10 +190,10 @@ class MessageController  extends BaseControllers
 
 
          //Send SMS
-        /*$credentials = [
+        $credentials = [
             'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
             'client_secret' => '0cfg1FtD5HAGKkT2'
-        ];*/
+        ];
 
         /*
         You can use directly authorization header instead of client_id and client_secret
@@ -202,7 +202,7 @@ class MessageController  extends BaseControllers
         ];
         */
 
-        /*$sms = new OrangeSDK($credentials);
+        $sms = new OrangeSDK($credentials);
         $numero = $user->tel;
         $val = 221;
         $tel =  $val.$numero;
@@ -211,7 +211,7 @@ class MessageController  extends BaseControllers
             ->as('Senschool')      // Sender's name (optional)
             ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
             ->send();
-            return response()->json($data, '200');*/
+            return response()->json($data, '200');
 
       //return response()->json('Message send succesfully');
 
@@ -240,10 +240,10 @@ class MessageController  extends BaseControllers
                 $user = new User();
                 $user = User::where('id', $parent->user_id)->firstOrFail();
             //Send SMS
-            /*$credentials = [
+            $credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];*/
+            ];
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -252,7 +252,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            /*$sms = new OrangeSDK($credentials);
+            $sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -261,7 +261,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();*/
+                ->send();
                 //return response()->json($data, '200');
             //}
 
@@ -311,10 +311,10 @@ class MessageController  extends BaseControllers
          $hparent->parent_id = $parent->id;
          $hparent->save();
             //Send SMS
-            /*$credentials = [
+            $credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];*/
+            ];
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -323,7 +323,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            /*$sms = new OrangeSDK($credentials);
+            $sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -332,7 +332,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();*/
+                ->send();
                 //return response()->json($data, '200');
            // }
 
@@ -361,10 +361,10 @@ class MessageController  extends BaseControllers
          $hparent->parent_id = $parent->id;
          $hparent->save();
             //Send SMS
-            /*$credentials = [
+            $credentials = [
                 'client_id' => 'UBBqLQPhYHxUm8PWActauCAdTXJnjAjn',
                 'client_secret' => '0cfg1FtD5HAGKkT2'
-            ];*/
+            ];
 
             /*
             You can use directly authorization header instead of client_id and client_secret
@@ -373,7 +373,7 @@ class MessageController  extends BaseControllers
             ];
             */
 
-            /*$sms = new OrangeSDK($credentials);
+            $sms = new OrangeSDK($credentials);
             $numero = $user->tel;
             $val = 221;
             $tel =  $val.$numero;
@@ -382,7 +382,7 @@ class MessageController  extends BaseControllers
                 ->from(221771440291)       // Sender phone's number
                 ->as('Senschool')      // Sender's name (optional)
                 ->to((int)$tel)      // Recipiant phone's number 773022150 778538538
-                ->send();*/
+                ->send();
                 //return response()->json($data, '200');
            // }
 
