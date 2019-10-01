@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/etablissement/nbrEleve', 'EtablissementController@NbreEleve');
+Route::get('/aneescholaire/AnEncours', 'AneesholaireController@AnEncours');
 Route::get('/etablissement/nbrEleveGarcon', 'EtablissementController@NbreGarcon');
 Route::get('/etablissement/nbrEleveFille', 'EtablissementController@NbreFille');
 Route::get('/etablissement/nbrClasse', 'EtablissementController@NbreClasse');

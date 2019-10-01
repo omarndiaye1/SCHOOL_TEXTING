@@ -185,6 +185,14 @@ class EtablissementController extends Controller
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
+    public function AnEncours() {
+        $qry = "SELECT *
+        FROM aneescholaires an
+        WHERE
+        AND an.etat = 1 " ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
 
     public function HistoriqueMessageParents() {
         $qry = 'SELECT hp.id,hp.created_at,u.nom,u.prenom,m.contenu

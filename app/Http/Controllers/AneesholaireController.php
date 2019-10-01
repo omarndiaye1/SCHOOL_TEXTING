@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Aneescholaire;
 use App\Models\Semestre;
 use App\Service\AneescholaireService;
-
+use DB;
 class AneesholaireController  extends BaseControllers
 {
     	/**
@@ -98,7 +98,12 @@ class AneesholaireController  extends BaseControllers
 
         return response()->json($data, '200');
     }
-
+    public function AnEncours() {
+        $qry = "SELECT * FROM aneescholaires WHERE
+        etat = 1 " ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
     /**
      * Show the form for editing the specified resource.
      *
