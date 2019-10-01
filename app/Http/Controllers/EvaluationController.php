@@ -128,7 +128,7 @@ class EvaluationController extends Controller
     }
 
     public function GetEMatiereByClasse($idclasse) {
-        $qry = 'SELECT m.libelle
+        $qry = 'SELECT m.id,m.libelle
         FROM classes_matieres cm,matieres m
         WHERE cm.classe_id =  "'.$idclasse.'" AND cm.matiere_id = m.id  ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
@@ -136,7 +136,7 @@ class EvaluationController extends Controller
         return response()->json($data, '200');
     }
     public function GetEvaluation($idsemestre,$idtype,$idclasse,$idmat) {
-        $qry = 'SELECT libelle
+        $qry = 'SELECT id,libelle
         FROM evaluations
         WHERE semestre_id =  "'.$idsemestre.'" AND typeevaluarions_id =  "'.$idtype.'"
         AND classe_id =  "'.$idclasse.'" AND matiere_id =  "'.$idmat.'"  ' ;
