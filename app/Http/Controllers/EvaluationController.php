@@ -5,6 +5,7 @@ header("Access-Control-Allow-Origin: *");
 use Illuminate\Http\Request;
 use App\Models\Etablissement;
 use App\Service\EvaluationService;
+use DB;
 class EvaluationController extends Controller
 {
      /**
@@ -124,5 +125,32 @@ class EvaluationController extends Controller
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
+    }
+
+    public function GetEMatiereByClasse($idclasse) {
+        $qry = 'SELECT m.libelle
+        FROM classes_matieres cm,matieres m
+        WHERE cm.classe_id =  "'.$idclasse.'" AND cm.matiere_id = m.id  ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+    public function GetEvaluation($idsemestre,$idtype,$idclasse,$idmat) {
+        $qry = 'SELECT libelle
+        FROM evaluations
+        WHERE semestre_id =  "'.$idsemestre.'" AND typeevaluarions_id =  "'.$idtype.'"
+        AND classe_id =  "'.$idclasse.'" AND matiere_id =  "'.$idmat.'"  ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
+    }
+
+    public function GetNote($ideval,$ideleve) {
+        $qry = 'SELECT m.libelle,n.value
+        FROM evaluations e, notes n,matieres m
+        WHERE e.id = "'.$ideval.'" AND m.id = e.matiere_id AND n.evaluation_id =  "'.$ideval.'" AND n.eleve_id =  "'.$ideleve.'" ' ;
+        //$qry = 'SELECT * FROM eleves e ' ;
+        $data = DB::select($qry);
+        return response()->json($data, '200');
     }
 }

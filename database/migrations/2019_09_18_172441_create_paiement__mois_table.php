@@ -15,9 +15,9 @@ class CreatePaiementMoisTable extends Migration
     {
         Schema::create('paiement__mois', function (Blueprint $table) {
             $table->unsignedBigInteger('paiement_id');
-            $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('cascade');;
+            $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('cascade');
             $table->unsignedBigInteger('mois_id');
-            $table->foreign('mois_id')->references('id')->on('mois')->onDelete('cascade');;
+            $table->foreign('mois_id')->references('id')->on('mois')->onDelete('cascade');
             $table->timestamps();
         });
     }

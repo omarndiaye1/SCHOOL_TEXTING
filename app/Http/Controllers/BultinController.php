@@ -3,31 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\BaseController;
-use App\Models\User;
-use App\Models\Adresse;
-use App\Models\Mois;
-use App\Models\Eleve;
-use App\Models\Inscription;
-use App\Models\Paiement;
-use App\Models\Role;
-use App\Models\Role_User;
-use App\Service\MoisService;
-use Illuminate\Support\Str;
-use DB;
+use App\Models\Departement;
+use App\Service\BultinService;
 
-class MoisController  extends BaseControllers
+class BultinController  extends BaseControllers
 {
-
-
-    /**
+    	/**
      * Create a new controller instance.
      *
-     * @param  MoisRepository
+     * @param  DepartementRepository
      * @return void
      */
-    public function __construct(MoisService $service)
+    public function __construct(BultinService $service)
     {
         $this->service = $service;
     }
@@ -40,7 +27,7 @@ class MoisController  extends BaseControllers
     public function index()
     {
         $data = $this->service->all();
-
+       /// $data[0]->matiere;
         return $data;
     }
 
@@ -63,23 +50,10 @@ class MoisController  extends BaseControllers
      */
     public function store(Request $request)
     {
-
-
-
-
-        return response()->json('Added succesfully');
-
-
+      $data = $request->all();
+      $data = $this->service->create($data);
+      return response()->json($data);
     }
-
-
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
 
     /**
      * Display the specified resource.
@@ -90,7 +64,7 @@ class MoisController  extends BaseControllers
     public function show($id)
     {
         //
-        $data= $this->service->find($id);
+     $data=  $this->service->find($id);
         return response()->json($data, '200');
     }
 
@@ -114,14 +88,9 @@ class MoisController  extends BaseControllers
      */
     function destroy ($id)
     {
-
-        //$user=User::findorfail($id);
-        User::destroy($id);
-        return response()->json("delete avec succes",'204');
         try{
            // $user= request()->user();
             $res = $this->service->delete($id);
-            //$user->delete();
             return response()->json("Suppression effectue avec succes",'204');
         } catch (\Exception $e) {
              Log::error($e->getMessage());
@@ -129,12 +98,6 @@ class MoisController  extends BaseControllers
         }
 
     }
-    /*public function destroy(User $user)
-    {
-        $user->delete();
-
-        return response()->json("Suppression effectue avec succes",'204');
-    }*/
 
     function update (Request $request,$id)
     {
@@ -142,8 +105,8 @@ class MoisController  extends BaseControllers
         try
             {
                // $user= request()->user();
-                //$data = $request->all();
-
+                $data = $request->all();
+                $res = $this->service->update($data, $id);
                 if ($res) {
                     return response()->json($res, '201');
                 }
@@ -153,7 +116,4 @@ class MoisController  extends BaseControllers
             }
 
     }
-
-
-
 }

@@ -14,6 +14,7 @@ class CreateHistoriqueParentsTable extends Migration
     public function up()
     {
         Schema::create('historique_parents', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('message_id');
             $table->foreign('message_id')->references('id')->on('messages');
             $table->unsignedBigInteger('parent_id');

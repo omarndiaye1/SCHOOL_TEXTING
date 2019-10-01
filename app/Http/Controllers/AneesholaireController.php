@@ -93,6 +93,9 @@ class AneesholaireController  extends BaseControllers
     {
         //
      $data=  $this->service->find($id);
+
+        $data->semestre;
+
         return response()->json($data, '200');
     }
 

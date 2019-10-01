@@ -14,6 +14,7 @@ class CreateHistoriqueProfsTable extends Migration
     public function up()
     {
         Schema::create('historique_profs', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('message_id');
             $table->foreign('message_id')->references('id')->on('messages');
             $table->unsignedBigInteger('prof_id');
