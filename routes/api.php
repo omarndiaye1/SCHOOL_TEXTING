@@ -21,6 +21,8 @@ Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClass
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
 Route::get('/Paiement/paiementByMonths/{id}','PaiementController@paiementByMonths');
 Route::get('/Paiement/MonthsBypaiement/{id}','PaiementController@MonthsBypaiement');
+Route::get('/Scolarite/paiementScolariteByMonths/{id}','ScolariteController@paiementScolariteByMonths');
+Route::get('/Scolarite/MonthsBypaiement/{id}','ScolariteController@MonthsBypaiement');
 Route::get('/eleve/showDetailsEleve/{idannee}/{idclasse}','EleveController@showDetailsEleve2');
 Route::resource('/inscription', 'InscriptionController');
 Route::resource('/role', 'RoleController');

@@ -70,10 +70,12 @@ class ScolariteController  extends BaseControllers
         foreach($request->post("mois") as &$value){
             $p->nombremois = $p->nombremois +1;
         }
-        $p->montant = $request->post("montant") ;
+        $qry = 'SELECT   * FROM aneescholaires a WHERE a.etat =1 ' ;
+        $data = DB::select($qry);
+        $p->montant = $request->post("montant")* $p->nombremois ;
         $p->eleve_id = $request->post("eleve_id");
         $p->typepaiement_id = $request->post("typepaiement");
-        $p->aneescholaires_id = $request->post("annee_id");
+        $p->aneescholaires_id = 1;
         $p->save();
         foreach($request->post("mois") as &$value){
             $mois=new Mois();
@@ -174,7 +176,7 @@ class ScolariteController  extends BaseControllers
     }
     
     public function MonthsBypaiement($idEleve) {
-        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiement_scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id=p.id  AND  m.id not in (select mois_id from paiement__mois)  ' ;
+        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiement__scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id=p.id  AND  m.id not in (select mois_id from paiement__scolarite__mois)  ' ;
        
         
         $data = DB::select($qry);
@@ -182,7 +184,7 @@ class ScolariteController  extends BaseControllers
     }
 
     public function paiementScolariteByMonths($idEleve) {
-        $qry = 'SELECT   m.libelle FROM mois m,paiement_scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id = p.id  AND pm.mois_id = m.id  ' ;
+        $qry = 'SELECT   m.libelle FROM mois m,paiement__scolarites p,paiement__scolarite__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiementscolarite_id = p.id  AND pm.mois_id = m.id  ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
         $data = DB::select($qry);
         return response()->json($data, '200');
