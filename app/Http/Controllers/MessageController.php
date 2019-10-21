@@ -467,12 +467,13 @@ class MessageController  extends BaseControllers
      */
 
     $sms = new OrangeSDK($credentials);
-    //    $tel = 771440291;
-    //    $contenu =
+    $numero = $tel;
+            $val = 221;
+            $telfinal =  $val.$numero;
     $data = $sms->message('Test sms babs')
         ->from(221771440291)       // Sender phone's number
         ->as('Senschool')      // Sender's name (optional)
-        ->to($tel)      // Recipiant phone's number 773022150 778538538
+        ->to((int)$telfinal)      // Recipiant phone's number 773022150 778538538
         ->send();
         return response()->json($data, '200');
     }

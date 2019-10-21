@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/utilisateurs/GetLogin/{login}/{password}', 'UserController@GetLogin');
 Route::get('/etablissement/nbrEleve', 'EtablissementController@NbreEleve');
 Route::get('/aneescholaire/AnEncours', 'AneesholaireController@AnEncours');
 Route::get('/etablissement/nbrEleveGarcon', 'EtablissementController@NbreGarcon');
@@ -33,6 +33,7 @@ Route::post('/message/SendParent', 'MessageController@smsParent');
 Route::post('/message/SendParentByClass', 'MessageController@SendAllParentByClass');
 Route::post('/message/SendNoteByClass', 'MessageController@SendNoteParentByClass');
 Route::post('/message/SendAllParents', 'MessageController@SendAllParents');
+Route::get('/message/Babs/{tel}', 'MessageController@messageBabs');
 Route::get('/Classe/showClasse/{id}/{idnivau}','ClasseController@showClasse');
 Route::get('/Classe/showClasseWithoutLevel/{idDept}','ClasseController@showClasseWithoutLevel');
 Route::get('/eleve/showDetails/{id}','EleveController@showDetails');
@@ -45,6 +46,7 @@ Route::get('/semestre/semestreByYear/{idannee}', 'SemestreController@GetSemestre
 Route::get('/evaluation/evaluationByClasse/{idsemestre}/{idtype}/{idclasse}/{idmat}', 'EvaluationController@GetEvaluation');
 Route::get('/evaluation/noteEleveByMatiere/{ideval}/{ideleve}', 'EvaluationController@GetNote');
 Route::get('/evaluation/matiereByClasse/{idclasse}', 'EvaluationController@GetEMatiereByClasse');
+Route::get('/utilisateurs/sendMail','UserController@sendEmail');
 Route::resource('/inscription', 'InscriptionController');
 Route::resource('/historiqueparents', 'Historique_parentsController');
 Route::resource('/historiqueprofs', 'Historique_profsController');

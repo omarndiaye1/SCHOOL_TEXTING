@@ -11,9 +11,11 @@ use App\Models\Role;
 use App\Models\Role_User;
 use App\Service\UserService;
 use CreateRoleUsersTable;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Etablissement;
+// use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-
+use Mail;
+use DB;
 
 class UserController  extends BaseControllers
 {
@@ -74,6 +76,9 @@ class UserController  extends BaseControllers
      */
     public function store(Request $request)
     {
+      $etabl = new Etablissement();
+      $etabl = Etablissement::where('id', 1)->firstOrFail();
+      $contactName = $etabl->nom;
       $data['login']=$request->post("login");
       $data['password']=$request->post("password");
       $data['nom']=$request->post("nom");
@@ -87,6 +92,7 @@ class UserController  extends BaseControllers
       $data['email_verified_at'] = now();
       $data['remember_token'] = Str::random(10);
       $result=$this->service->create($data);
+      $email = $request->post("email");
         //ajout adresse
       $adresse=new Adresse();
       $adresse->libelle=$request->post("adresse");
@@ -101,6 +107,28 @@ class UserController  extends BaseControllers
       $role_user->role_id=$role->id;
       $role_user->user_id= $result->id;
       $role_user->save();
+
+      //Send Mail
+      Mail::raw("Bonjour ".$request->post("civilite")." ".$request->post("nom").","
+      ."\n\n".
+      "Bienvenue vous venez d'être inscrit sur la platforme SenSchool pour l'établissement ".$etabl->nom
+      ."\n\n".
+      "Vos identifiants sont:"
+      ."\n\n".
+      "Login: ".$request->post("email")." ou ".$request->post("login")
+      ."\n\n".
+      'Mot de passe: '.$request->post("password")
+      ."\n\n".
+      'Role: '.$request->post("role")
+      ."\n\n".
+      "Cordialement."
+      ."\n\n".
+      "SenSchool, application pour les parents, les professeurs et les établissements scolaires."
+      , function ($message) use($email, $contactName) {
+        //$message->from($contactName);
+        $message->to($email)->subject('Informations de connexion');
+        //$message->attach('G:\bulletin.pdf');
+      });
 
 
       return response()->json('Added succesfully');
@@ -199,6 +227,30 @@ class UserController  extends BaseControllers
                         return response()->json("Une erreur est survenue lors de la modification, Veuiller contacter l'administrateur",'201');
             }
 
+    }
+    public function sendEmail()
+    {
+        $email = 'babsco95@gmail.com';
+        // $contactName = 'Babacar NDIAYE';
+        // $data = array( 'email'=>$email, 'name'=>$contactName);
+        Mail::raw('Hi, welcome user!', function ($message)  use ($email)  {
+            $message->to($email)->subject('Tuts Make Mail');
+            $message->attach('G:\bulletin.pdf');
+          });
+
+        if (Mail::failures()) {
+           return response()->Fail('Sorry! Please try again latter');
+         }else{
+           return response()->success('Great! Successfully send in your mail');
+         }
+    }
+
+    public function GetLogin($login, $password) {
+        $qry = 'SELECT u.id,u.login,u.email,u.password,u.nom,u.prenom,u.remember_token,r.libelle as role
+        FROM users u,roles r,role__users ru WHERE u.id = ru.user_id AND r.id = ru.role_id
+        AND u.login = "'.$login.'"  AND u.password = "'.$password.'" ';
+        $data = DB::select($qry);
+        return response()->json($data, '200');
     }
 
 }

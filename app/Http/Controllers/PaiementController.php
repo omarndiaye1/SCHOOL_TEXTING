@@ -54,7 +54,7 @@ class PaiementController  extends BaseControllers
      */
     function create ()
     {
-        
+
     }
 
 
@@ -86,12 +86,12 @@ class PaiementController  extends BaseControllers
             $pm->paiement_id=$p->id;
             $pm->save();
         }
-     
+
      //   $mois=Mois::whereLibelle($request->post("mois["))->firstOrFail();
        // $p->mois_id=$mois->id;
-     
 
-       
+
+
 
         return response()->json('Added succesfully');
 
@@ -169,7 +169,7 @@ class PaiementController  extends BaseControllers
             {
                // $user= request()->user();
                 //$data = $request->all();
-               
+
                 if ($res) {
                     return response()->json($res, '201');
                 }
@@ -179,17 +179,20 @@ class PaiementController  extends BaseControllers
             }
 
     }
-    
+
     public function MonthsBypaiement($idEleve) {
-        $qry = 'SELECT  DISTINCT m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id=p.id  AND  m.id not in (select mois_id from paiement__mois)  ' ;
-       
-        
+        $qry = 'SELECT DISTINCT m.libelle
+        FROM mois m,paiements p,eleves e,paiement__mois pm
+        WHERE p.eleve_id=e.id AND e.id LIKE "'.$idEleve.'" AND pm.paiement_id=p.id
+        AND m.id not in (select mois_id from paiement__mois)  ' ;
+
+
         $data = DB::select($qry);
         return response()->json($data, '200');
     }
 
     public function paiementByMonths($idEleve) {
-        $qry = 'SELECT   m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id = p.id  AND pm.mois_id = m.id  ' ;
+        $qry = 'SELECT m.id,m.libelle FROM mois m,paiements p,paiement__mois pm  WHERE p.eleve_id LIKE "'.$idEleve.'" AND pm.paiement_id = p.id  AND pm.mois_id = m.id  ' ;
         //$qry = 'SELECT * FROM eleves e ' ;
         $data = DB::select($qry);
         return response()->json($data, '200');
