@@ -246,7 +246,7 @@ class UserController  extends BaseControllers
     }
 
     public function GetLogin($login, $password) {
-        $qry = 'SELECT u.id,u.login,u.email,u.password,u.nom,u.prenom,u.remember_token,r.libelle as role
+        $qry = 'SELECT u.id,u.login,u.email,u.password,u.nom,u.prenom,u.remember_token,r.libelle as role,u.photo
         FROM users u,roles r,role__users ru WHERE u.id = ru.user_id AND r.id = ru.role_id
         AND u.login = "'.$login.'"  AND u.password = "'.$password.'" ';
         $data = DB::select($qry);
